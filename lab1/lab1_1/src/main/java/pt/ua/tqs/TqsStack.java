@@ -11,20 +11,20 @@ public class TqsStack<T> implements IStack<T> {
         collection = new LinkedList<>();
     }
 
+    public void push(T v) {
+        collection.addLast(v);
+    }
+
     public T pop() {
         return collection.removeLast(); 
     }
-
-    public int size() {
-        return collection.size();
-    }
-
+    
     public T peek() {        
         return collection.getLast();
     }
 
-    public void push(T v) {
-        collection.addLast(v);
+    public int size() {
+        return collection.size();
     }
 
     public boolean isEmpty() {
