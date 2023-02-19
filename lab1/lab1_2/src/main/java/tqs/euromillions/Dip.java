@@ -27,7 +27,7 @@ public class Dip {
     public Dip(int[] arrayOfNumbers, int[] arrayOfStarts) {
         this();
 
-       if( ! Arrays.stream(arrayOfNumbers).allMatch( nr -> nr >= 1 && nr <= NUMBERS_RANGE_MAX) ){
+        if( ! Arrays.stream(arrayOfNumbers).allMatch( nr -> nr >= 1 && nr <= NUMBERS_RANGE_MAX) ){
             throw new IllegalArgumentException("numbers set are outside the expected range!");
         }
 

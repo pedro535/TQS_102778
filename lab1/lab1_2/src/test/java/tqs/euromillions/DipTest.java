@@ -22,10 +22,12 @@ public class DipTest {
         sampleInstance = new Dip(new int[]{10, 20, 30, 40, 50}, new int[]{1, 2});
     }
 
+
     @AfterEach
     public void tearDown() {
         sampleInstance = null;
     }
+
 
     @DisplayName("format as string show all elements")
     @Test
@@ -33,6 +35,7 @@ public class DipTest {
         String result = sampleInstance.format();
         assertEquals("N[ 10 20 30 40 50] S[  1  2]", result, "format as string: formatted string not as expected. ");
     }
+
 
     @DisplayName("new Dip rejects wrong size ou negatives")
     @Test
@@ -48,8 +51,8 @@ public class DipTest {
 
         // this test will reveal that the code was not yet checking ranges
 
-
     }
+
 
     @DisplayName("new Dip rejects out of range elements")
     @Test
@@ -62,7 +65,5 @@ public class DipTest {
                 () -> new Dip( new int[]{11, 12, 13, 14, 15}, new int[]{ Dip.STARS_RANGE_MAX*2 ,1} ) );
 
     }
-
-
 
 }

@@ -67,6 +67,11 @@ public class BoundedSetOfNaturals implements Iterable<Integer> {
     }
 
 
+    public int maxSize() {
+        return this.maxSize;
+    }
+
+
     //TODO implement the intersect logic
     public boolean intersects(BoundedSetOfNaturals subset) {
         return false;
