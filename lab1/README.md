@@ -4,13 +4,13 @@
 
 Após a geração do relatório de code coverage usando o plugin JaCoCo, podemos ver que o coverage para a classe `BoundedSetOfNaturals` é apenas de 54%, o que não é o ideal.
 
-![Code coverage](./images/code_coverage_1.png)
+![Code coverage](./images/code_coverage_before_1.png)
 
-![Code coverage details](./images/code_coverage_2.png)
+![Code coverage details](./images/code_coverage_before_2.png)
 
 Através da última imagem podemos concluir que o método `fromArray` não está a ser testado, uma vez que apresenta um code coverage de 0%. O mesmo acontece com o método `intersects`, `size` e `hashCode`.
 
-
+--- 
 ## What kind of unit test are worth writing for proper validation of BoundedSetOfNaturals?
 
 Para testar a classe `BoundedSetOfNaturals` de forma a garantir que o seu comportamento é o esperado, devemos efetuar as seguintes verificações:
@@ -28,3 +28,11 @@ Para testar a classe `BoundedSetOfNaturals` de forma a garantir que o seu compor
 
 
 Adicionei um getter para obter o maxSize para dps verificar se o fromArray define o maxSize corretamente.
+
+---
+
+Após a adição dos testes supracitados, a percentagem de code coverage aumentou para 96%. Não foram desenvolvidos mais testes de modo a alcançar a marca dos 100% uma vez que nem todo o código tem interesse em ser testado.
+
+![Code coverage](./images/code_coverage_after_1.png)
+
+![Code coverage details](./images/code_coverage_after_2.png)

@@ -63,7 +63,6 @@ class BoundedSetOfNaturalsTest {
     }
 
 
-
     //  There are 3 cases of construction from invalid arrays:
     //  1 - invalid elements
     //  2 - repeated elements
@@ -107,6 +106,20 @@ class BoundedSetOfNaturalsTest {
 
         //sets with differents elements must have different hashCodes
         assertFalse(setB.hashCode() == setC.hashCode());
+    }
+
+
+    @Test
+    @DisplayName("Test if a set intersects other set")
+    public void testIntersection() {
+
+        // {50, 60} is subset of {10, 20, 30, 40, 50, 60}
+        assertTrue(setB.intersects(setC));
+
+        // {10, 20} is not subset of {50, 60}
+        setD.add(10);
+        setD.add(20);
+        assertFalse(setD.intersects(setC)); 
     }
 
 
