@@ -16,22 +16,22 @@ public class TqsStackTest {
 
 
     @Test
-    @DisplayName("Test if the stack is empty on construction")
-    public void emptyOnConstruction() {
+    @DisplayName("Test if stack is empty on construction")
+    public void testEmptyOnConstruction() {
         assertTrue(stack.isEmpty());
     }
 
 
     @Test
-    @DisplayName("Test if the size the stack is 0 after construction")
-    public void sizeZeroAfterConstruction() {
+    @DisplayName("Test if stack size is 0 on construction")
+    public void testSizeOnConstruction() {
         assertEquals(0, stack.size());
     }
 
 
     @Test
     @DisplayName("Test if stack is not empty and has size equal n, after n pushes")
-    public void multiplePushes() {
+    public void testMultiplePushes() {
 
         //n pushes
         int n = 10;
@@ -48,7 +48,7 @@ public class TqsStackTest {
     
     @Test
     @DisplayName("If one pushes x then pops, test if the value popped is x")
-    public void popOne() {
+    public void testPopOne() {
         stack.push(1);
         assertEquals(1, stack.pop());
     }
@@ -56,7 +56,7 @@ public class TqsStackTest {
 
     @Test
     @DisplayName("If one pushes x then peeks, test if the value returned is x and the size stays the same")
-    public void peek() {
+    public void testPeek() {
         stack.push(1);
         stack.push(2);
 
@@ -67,7 +67,7 @@ public class TqsStackTest {
 
     @Test
     @DisplayName("If the size is n, then after n pops, the stack is empty and has a size 0")
-    public void multiplePops() {
+    public void testMultiplePops() {
 
         //n pushes
         int n = 10;
@@ -88,14 +88,14 @@ public class TqsStackTest {
 
     @Test
     @DisplayName("Test if popping from an empty stack does throw a NoSuchElementException")
-    public void poppingFromEmptyStack() {
+    public void testPoppingFromEmptyStack() {
         assertThrows(NoSuchElementException.class, () -> stack.pop());
     }
 
 
     @Test
     @DisplayName("Test if peeking into an empty stack does throw a NoSuchElementException")
-    public void peekFromEmptyStack() {
+    public void testPeekFromEmptyStack() {
         assertThrows(NoSuchElementException.class, () -> stack.peek());
     }
 
