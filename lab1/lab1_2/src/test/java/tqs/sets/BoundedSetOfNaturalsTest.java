@@ -76,7 +76,7 @@ class BoundedSetOfNaturalsTest {
 
     @Test
     @DisplayName("Test set construction from array with invalid elements")
-    public void testAddFromBadArray1() {
+    public void testAddFromBadArrayInvalid() {
         int[] elems = new int[]{10, -20, -30};
 
         // must fail with exception
@@ -85,7 +85,7 @@ class BoundedSetOfNaturalsTest {
 
     @Test
     @DisplayName("Test set construction from array with repeated elements")
-    public void testAddFromBadArray2() {
+    public void testAddFromBadArrayRepeated() {
         int[] elems = new int[]{1, 2, 2};
 
         // must fail with exception
@@ -94,7 +94,7 @@ class BoundedSetOfNaturalsTest {
 
     @Test
     @DisplayName("Test set construction from array with length > maxSize")
-    public void testAddFromBadArray3() {
+    public void testAddFromBadArrayMaxsize() {
         int[] elems = new int[]{1, 2, 3, 4};
 
         // must fail with exception
