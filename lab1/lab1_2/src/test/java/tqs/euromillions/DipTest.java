@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package tqs.euromillions;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.*;
-import tqs.euromillions.Dip;
 
-/**
- * @author ico0
- */
+
 public class DipTest {
 
     private Dip sampleInstance;

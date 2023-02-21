@@ -13,7 +13,7 @@ import java.util.Random;
 public class Dip {
     static Random generator = new Random();
     public static final int NUMBERS_RANGE_MAX = 50;
-    public static final int STARS_RANGE_MAX = 10;
+    public static final int STARS_RANGE_MAX = 12;
     public static final int NUMBERS_REQUIRED = 5;
     public static final int STARS_REQUIRED = 2;
     private BoundedSetOfNaturals numbers;

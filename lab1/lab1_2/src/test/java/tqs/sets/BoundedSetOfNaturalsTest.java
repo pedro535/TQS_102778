@@ -2,11 +2,8 @@ package tqs.sets;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
-import tqs.sets.BoundedSetOfNaturals;
 
-/**
- * @author ico0
- */
+
 class BoundedSetOfNaturalsTest {
     private BoundedSetOfNaturals setA;
     private BoundedSetOfNaturals setB;
@@ -27,6 +24,7 @@ class BoundedSetOfNaturalsTest {
     public void tearDown() {
         setA = setB = setC = setD = null;
     }
+
 
     @Test
     @DisplayName("Test size after construction")
@@ -49,6 +47,14 @@ class BoundedSetOfNaturalsTest {
 
 
     @Test
+    @DisplayName("Test set construction using an invalid array")
+    public void testConstructionFromInvalidArray() {
+        assertThrows(IllegalArgumentException.class, () -> BoundedSetOfNaturals.fromArray(new int[]{1, 1}));
+        assertThrows(IllegalArgumentException.class, () -> BoundedSetOfNaturals.fromArray(new int[]{1, -1}));
+    }
+
+
+    @Test
     @DisplayName("Test adding an element")
     public void testAddElement() {
 
@@ -56,7 +62,7 @@ class BoundedSetOfNaturalsTest {
         assertTrue(setA.contains(99), "add: added element not found in set.");
         assertEquals(1, setA.size());
 
-        //setB.add(11);  This must throw an exception, so we test it using assertThrows!
+        //setB.add(11)  -->  This must throw an exception, so we test it using assertThrows!
         assertThrows(IllegalArgumentException.class, () -> setB.add(11));
         assertFalse(setB.contains(11), "add: added element found in set.");
         assertEquals(6, setB.size(), "add: elements count not as expected.");
