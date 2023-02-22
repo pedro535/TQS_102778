@@ -47,7 +47,7 @@ class BoundedSetOfNaturalsTest {
 
 
     @Test
-    @DisplayName("Test set construction using an invalid array")
+    @DisplayName("Test set construction using an invalid array via fromArray method")
     public void testConstructionFromInvalidArray() {
         assertThrows(IllegalArgumentException.class, () -> BoundedSetOfNaturals.fromArray(new int[]{1, 1}));
         assertThrows(IllegalArgumentException.class, () -> BoundedSetOfNaturals.fromArray(new int[]{1, -1}));
