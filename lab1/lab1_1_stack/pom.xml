@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>pt.ua.tqs</groupId>
-  <artifactId>lab1_1</artifactId>
+  <artifactId>lab1_1_stack</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>lab1_1</name>
+  <name>lab1_1_stack</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
