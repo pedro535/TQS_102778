@@ -10,8 +10,8 @@ public class StocksPortfolio {
 
 
     public StocksPortfolio(IStockmarketService stockmarket) {
-        this.stockmarket = stockmarket;
         this.stocks = new ArrayList<>();
+        this.stockmarket = stockmarket;
     }
 
     public double getTotalValue() {
