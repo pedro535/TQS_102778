@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package geocoding;
 
 import java.util.Objects;
 
-/**
- * @author ico
- */
 public class Address {
 
     private String road;
@@ -58,20 +50,10 @@ public class Address {
         this.zio = zio;
     }
 
-    /**
-     * Get the value of houseNumber
-     *
-     * @return the value of houseNumber
-     */
     public String getHouseNumber() {
         return houseNumber;
     }
 
-    /**
-     * Set the value of houseNumber
-     *
-     * @param houseNumber new value of houseNumber
-     */
     public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
@@ -84,6 +66,11 @@ public class Address {
     @Override
     public int hashCode() {
         int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.road);
+        hash = 97 * hash + Objects.hashCode(this.cirty);
+        hash = 97 * hash + Objects.hashCode(this.state);
+        hash = 97 * hash + Objects.hashCode(this.zio);
+        hash = 97 * hash + Objects.hashCode(this.houseNumber);
         return hash;
     }
 
