@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -39,10 +40,10 @@ class AddressResolverTest {
         when(mockedHttpClient.doHttpGet(anyString())).thenReturn(jsonResponse);
 
         //Call the method to be tested
-        Address result = resolver.findAddressForLocation(latitude, longitude);
+        Optional<Address> result = resolver.findAddressForLocation(latitude, longitude);
 
         //Verify the result
-        assertEquals(result, new Address( "Avenida João Jacinto de Magalhães", "Aveiro", "", "3810-149", null) );
+        assertEquals(result.get(), new Address( "Avenida João Jacinto de Magalhães", "Aveiro", "", "3810-149", null) );
 
     }
 
@@ -60,10 +61,10 @@ class AddressResolverTest {
         when(mockedHttpClient.doHttpGet(anyString())).thenReturn(jsonResponse);
 
         //Call the method to be tested
-        Address result = resolver.findAddressForLocation(latitude, longitude);
+        Optional<Address> result = resolver.findAddressForLocation(latitude, longitude);
 
         //Verify the result
-        assertNull(result);
+        assertEquals(result, Optional.empty());
 
     }
 }

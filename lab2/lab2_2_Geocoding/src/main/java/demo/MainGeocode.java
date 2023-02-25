@@ -32,11 +32,11 @@ public class MainGeocode {
         try {
             AddressResolver resolver =new AddressResolver( new TqsBasicHttpClient());
             
-            Address result = resolver.findAddressForLocation( 40.633116,-8.658784);
-            log.info("Result: ".concat( result.toString()));
+            Optional<Address> result = resolver.findAddressForLocation( 40.633116,-8.658784);
+            log.info("Result: ".concat( result.get().toString() ) );
 
             result = resolver.findAddressForLocation( 120,-600);
-            log.info("Result: ".concat( result.toString()));
+            log.info("Result: ".concat( String.valueOf(result.isPresent())));
 
         } catch (URISyntaxException | IOException | ParseException | org.json.simple.parser.ParseException ex) {
             log.error(String.valueOf(ex));

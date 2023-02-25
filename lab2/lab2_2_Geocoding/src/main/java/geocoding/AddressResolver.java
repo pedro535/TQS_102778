@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Formatter;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,8 +26,7 @@ public class AddressResolver {
     }
 
 
-    public Address findAddressForLocation(double latitude, double longitude) throws URISyntaxException, IOException, ParseException, org.json.simple.parser.ParseException {
-
+    public Optional<Address> findAddressForLocation(double latitude, double longitude) throws URISyntaxException, IOException, ParseException, org.json.simple.parser.ParseException {
         String apiKey = ConfigUtils.getPropertyFromConfig("mapquest_key");
 
         URIBuilder uriBuilder = new URIBuilder("https://www.mapquestapi.com/geocoding/v1/reverse");
@@ -45,7 +45,7 @@ public class AddressResolver {
         obj = (JSONObject) ((JSONArray) obj.get("results")).get(0);
 
         if (((JSONArray) obj.get("locations")).isEmpty()) {
-            return null;
+            return Optional.empty();
         } else {
             JSONObject address = (JSONObject) ((JSONArray) obj.get("locations")).get(0);
 
@@ -53,7 +53,7 @@ public class AddressResolver {
             String city = (String) address.get("adminArea5");
             String state = (String) address.get("adminArea3");
             String zip = (String) address.get("postalCode");
-            return new Address(road, city, state, zip, null);
+            return Optional.of(new Address(road, city, state, zip, null));
         }
     }
 }
