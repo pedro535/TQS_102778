@@ -16,6 +16,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+
 
 @ExtendWith(MockitoExtension.class)
 class AddressResolverTest {
@@ -42,8 +44,9 @@ class AddressResolverTest {
         //Call the method to be tested
         Optional<Address> result = resolver.findAddressForLocation(latitude, longitude);
 
-        //Verify the result
-        assertEquals(result.get(), new Address( "Avenida João Jacinto de Magalhães", "Aveiro", "", "3810-149", null) );
+        //Verify the result and the usage of the mock
+        assertEquals(result.get(), new Address( "Avenida João Jacinto de Magalhães", "Aveiro", "", "3810-149", null));
+        verify(mockedHttpClient).doHttpGet(anyString());
 
     }
 
@@ -56,15 +59,16 @@ class AddressResolverTest {
         double latitude = -300;
         double longitude = -810;
 
-        //Load the mock with the proper expectations (when...thenReturn)
+        //Load the mock with the proper expectations - JSON response with status code 400 (Bad Request)
         String jsonResponse = "{\"info\":{\"statuscode\":400,\"copyright\":{\"text\":\"© 2022 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"imageAltText\":\"© 2022 MapQuest, Inc.\"},\"messages\":[\"Illegal argument from request: Invalid LatLng specified.\"]},\"options\":{\"maxResults\":1,\"ignoreLatLngInput\":false},\"results\":[{\"providedLocation\":{},\"locations\":[]}]}";
         when(mockedHttpClient.doHttpGet(anyString())).thenReturn(jsonResponse);
 
         //Call the method to be tested
         Optional<Address> result = resolver.findAddressForLocation(latitude, longitude);
 
-        //Verify the result
+        //Verify the result ans the usage of the mock
         assertEquals(result, Optional.empty());
+        verify(mockedHttpClient).doHttpGet(anyString());
 
     }
 }
