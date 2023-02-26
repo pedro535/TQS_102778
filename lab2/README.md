@@ -126,7 +126,11 @@ assertThat(hamcrestMatchers, arrayWithSize(4));
 
 Some examples are from [Baeldung](https://www.baeldung.com/java-junit-hamcrest-guide) website!
 
+</br>
+
 ## References
+
+https://stackoverflow.com/questions/2665812/what-is-mocking
 
 https://www.baeldung.com/java-junit-hamcrest-guide
 
