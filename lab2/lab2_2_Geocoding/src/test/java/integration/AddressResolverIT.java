@@ -48,7 +48,7 @@ public class AddressResolverIT {
         //Call the method to be tested
         Optional<Address> result = resolver.findAddressForLocation(latitude, longitude);
 
-        //Verify the result ans the usage of the mock
+        //Verify the result and the mock usage
         assertEquals(result, Optional.empty());
         
     }
