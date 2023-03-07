@@ -88,34 +88,34 @@ public class CarControllerTest {
 
 
     @Test
-    @DisplayName("Test getCarById method when carId exists")
+    @DisplayName("Test getCarById method when CarId exists")
     public void givenAnExistingCar_whenGetById_thenReturnCar() throws Exception {
 
         Car car = new Car("Ford", "Mustang");
-        car.setCarID(1L);
+        car.setCarId(1L);
 
         //load expectation
         when(service.getCarDetails(anyLong())).thenReturn(Optional.of(car));
 
         //HTTP GET and make assertions
         mvc.perform(
-            get("/api/cars/" + car.getCarID()).contentType(MediaType.APPLICATION_JSON)
+            get("/api/cars/" + car.getCarId()).contentType(MediaType.APPLICATION_JSON)
         )
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.maker", is("Ford")))
         .andExpect(jsonPath("$.model", is("Mustang")));
 
         //verify if the getCarDetails() was invoked
-        verify(service, times(1)).getCarDetails(car.getCarID());
+        verify(service, times(1)).getCarDetails(car.getCarId());
     }
 
 
     @Test
-    @DisplayName("Test getCarById method when carId does not exist")
-    public void givenAnNonExistingCar_whenGetById_thenReturnNotFound() throws Exception {
+    @DisplayName("Test getCarById method when CarId does not exist")
+    public void givenANonExistingCar_whenGetById_thenReturnNotFound() throws Exception {
 
         Car car = new Car("Ford", "Mustang");
-        car.setCarID(1L);
+        car.setCarId(1L);
 
         //load expectation
         when(service.getCarDetails(anyLong())).thenReturn(Optional.empty());

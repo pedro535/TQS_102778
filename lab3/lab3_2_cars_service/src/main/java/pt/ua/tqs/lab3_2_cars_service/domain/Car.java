@@ -8,7 +8,7 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long carID;
+    private Long carId;
     private String maker;
     private String model;
 
@@ -20,12 +20,12 @@ public class Car {
         this.model = model;
     }
 
-    public Long getCarID() {
-        return carID;
+    public Long getCarId() {
+        return carId;
     }
 
-    public void setCarID(Long carID) {
-        this.carID = carID;
+    public void setCarId(Long carId) {
+        this.carId = carId;
     }
 
     public String getMaker() {

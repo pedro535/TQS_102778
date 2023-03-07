@@ -8,12 +8,12 @@ public class CarDTO {
 
 
     public static CarDTO fromCarEntity(Car car) {
-        return new CarDTO(car.getCarID(), car.getMaker(), car.getModel());
+        return new CarDTO(car.getCarId(), car.getMaker(), car.getModel());
     }
 
     public Car toCarEntity() {
         Car car = new Car(maker, model);
-        car.setCarID(carId);
+        car.setCarId(carId);
         return car;
     }
 

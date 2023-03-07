@@ -90,7 +90,7 @@ public class CarManagerServiceTest {
 
     @Test
     @DisplayName("Test getCarDetails method")
-    public void givenAnNonExistingCarId_thenReturnEmpty() {
+    public void givenANonExistingCarId_thenReturnEmpty() {
 
         //load expectations
         when(mockedRepo.findByCarId(1L)).thenReturn(null);
