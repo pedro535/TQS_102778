@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Run as a SpringBoot test. The parameters to SpringBootTest could be omitted, but, in this case,
  * we are trying to limit the web context to a simplified web framework, and load the designated application
  */
-//@SpringBootTest
 
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK, classes = EmployeeMngrApplication.class)
 @AutoConfigureMockMvc
