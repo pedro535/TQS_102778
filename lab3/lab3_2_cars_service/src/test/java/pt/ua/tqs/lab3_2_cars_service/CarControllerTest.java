@@ -50,8 +50,8 @@ public class CarControllerTest {
             .content(JsonUtils.toJson(car))
         )
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.maker", is("Ford")))
-            .andExpect(jsonPath("$.model", is("Mustang")));
+            .andExpect(jsonPath("$.maker", is(car.getMaker())))
+            .andExpect(jsonPath("$.model", is(car.getModel())));
 
         //verify if the save method was invoked
         verify(service, times(1)).saveCar(any());
@@ -102,8 +102,8 @@ public class CarControllerTest {
             get("/api/cars/" + car.getCarId()).contentType(MediaType.APPLICATION_JSON)
         )
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.maker", is("Ford")))
-        .andExpect(jsonPath("$.model", is("Mustang")));
+        .andExpect(jsonPath("$.maker", is(car.getMaker())))
+        .andExpect(jsonPath("$.model", is(car.getModel())));
 
         //verify if the getCarDetails() was invoked
         verify(service, times(1)).getCarDetails(car.getCarId());

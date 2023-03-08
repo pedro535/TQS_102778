@@ -61,8 +61,8 @@ public class CarManagerServiceTest {
         List<Car> allCars = service.getAllCars();
 
         //assert and verify
-        assertThat(allCars).hasSize(3).extracting(Car::getMaker).containsExactly("Ford", "Toyota", "Audi");
-        assertThat(allCars).hasSize(3).extracting(Car::getModel).containsExactly("Mustang", "Prius", "A3");
+        assertThat(allCars).hasSize(3).extracting(Car::getMaker).containsExactly(car1.getMaker(), car2.getMaker(), car3.getMaker());
+        assertThat(allCars).hasSize(3).extracting(Car::getModel).containsExactly(car1.getModel(), car2.getModel(), car3.getModel());
         verify(mockedRepo, times(1)).findAll();
     }
 
@@ -80,8 +80,8 @@ public class CarManagerServiceTest {
 
         //assert
         assertThat(carFromDb.isPresent());
-        assertThat(carFromDb.get().getMaker()).isEqualTo("Ford");
-        assertThat(carFromDb.get().getModel()).isEqualTo("Mustang");
+        assertThat(carFromDb.get().getMaker()).isEqualTo(car.getMaker());
+        assertThat(carFromDb.get().getModel()).isEqualTo(car.getModel());
 
         //verify
         verify(mockedRepo, times(1)).findByCarId(anyLong());

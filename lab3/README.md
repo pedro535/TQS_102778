@@ -1,61 +1,46 @@
 # Lab 3
 
-## Lab 3.1 - Review questions
+## Multi-layer application testing (with Spring Boot)
 
-### A) Identify a couple of examples that use AssertJ expressive methods chaining
+Most Spring Boot applications are multi-layered applications, so it is important to know how to test each layer properly.
+Normally, we have the following three layers:
 
-Test A
-```java 
-assertThat(allEmployees).hasSize(3).extracting(Employee::getName).containsOnly(alex.getName(), ron.getName(), bob.getName());
-```
-TODO - explain what is does
+- Controller
+- Service
+- Repository
 
-Test B
-```java
-assertThat(found).extracting(Employee::getName).containsOnly("bob");
-```
-TODO - explain what is does
+The basic logic to test each layer is:
 
-Test E
-```java
-assertThat(response.getBody()).extracting(Employee::getName).containsExactly("bob", "alex");
-```
-TODO - explain what is does
+- **Controller**: test the controller mocking the service layer
+- **Service**: test the service mocking the repository layer
+- **Repository**: test the repository using objects that allow direct access to the database (with no caches involved)
 
-### B) Identify an example in which you mock the behavior of the repository (and avoid involving a database)
+</br>
 
-An example where we mock the behavior of the repository is in the class test `B_EmplyeeService_UnitTest.java`. Here, instead of using the real repository to access the database, we use a mock object to simulate the behavior of the repository.
+### Limit application context
 
-### C) What is the difference between standard @Mock and @MockBean?
+In order to speed up the tests, we can limit the application context to the layers we want to test.
 
-Using SpringBoot framework, when we need to mock a class, for example, a service class, as its lifecycle is entirely managed by Spring, we need to use the annotation `@MockBean` instead of `@Mock`. The difference is that `@MockBean` is used to mock a bean that is managed by Spring, while `@Mock` is used to mock a bean that is not managed by Spring.
+For example, if we want to develop unit tests for the controller layer, we can just load a simplified and light environment, simulating the behavior of an application server, by using `@WebMvcTest` mode.
 
->**Note**: We can use the @MockBean to add mock objects to the Spring application context. The mock will replace any existing bean of the same type in the application context. If no bean of the same type is defined, a new one will be added. This annotation is useful in integration tests where a particular bean, like an external service, needs to be mocked.
+If we want to test the repository layer, we can use `@DataJpaTest` mode.
 
-### D) What is the role of the file “application-integrationtest.properties”? In which conditions will it be used?
+However, every time we want to develop tests that make use of the entire application context (e.g. integration tests), we can use `@SpringBootTest` mode.
 
-The group of tests D and E are not Unit Tests, but Integration Tests, which means that we are not going to use mocked objects anymore but the real objects instead. When using real services and repositories and an external database (not a memory database) it is necessary to configure it, and this is done in the file `application-integrationtest.properties`.
+</br>
 
-TODO: review and complete
+### Useful classes for testing
 
-### E) The sample project demonstrates three test strategies to assess an API (C, D and E) developed with SpringBoot. Which are the main/key differences?
+- `TestEntityManager` (from Spring Data JPA): allows to perform operations directly on the database, without using the repository layer.
 
-TODO:
-Test C - unit test recorrendo a um mock do service
-Test D - integration test: teste num ambiente interno
-Test E - integration test: teste a partir de um ambiente completamente externo
+- `MockMvc`: allows us to access the server context through a special testing servlet and interact with the API.
 
-3.2: C -> B -> A -> E
-    @MockBean  // NAO PODIA SER SO MOCK PQ O CICLO DE VIDA DOS SERVICOS É GERIDA PELO SPRING 
+- `TestRestTemplate`: allows us to interact with the API using an HTTP client. We can simulate external requests to the API.
 
-## Notes
+</br>
 
-### Run individual tests
+### Run individual tests from the command line
 
 ```bash
 mvn test -Dtest=EmployeeService*
 ```
-
-## References
-
-<https://www.baeldung.com/java-spring-mockito-mock-mockbean>

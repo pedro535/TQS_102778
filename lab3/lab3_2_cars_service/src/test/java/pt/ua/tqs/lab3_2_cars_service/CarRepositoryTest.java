@@ -28,16 +28,16 @@ public class CarRepositoryTest {
     @DisplayName("Test findByCarId repository method with a valid carId")
     public void givenAnExitingCar_thenReturnCar() {
 
-        Car car1 = new Car("Ford", "Mustang");
-        Long carId = (Long) entityManager.persistAndGetId(car1);
+        Car car = new Car("Ford", "Mustang");
+        Long carId = (Long) entityManager.persistAndGetId(car);
 
         //execute
         Car carFromDb = repository.findByCarId(carId);
 
         //assert
         assertThat(carFromDb).isNotNull();
-        assertThat(carFromDb.getMaker()).isEqualTo("Ford");
-        assertThat(carFromDb.getModel()).isEqualTo("Mustang");
+        assertThat(carFromDb.getMaker()).isEqualTo(car.getMaker());
+        assertThat(carFromDb.getModel()).isEqualTo(car.getModel());
     }
 
 
