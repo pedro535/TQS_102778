@@ -8,20 +8,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.test.context.TestPropertySource;
 import pt.ua.tqs.lab3_2_cars_service.domain.Car;
 import pt.ua.tqs.lab3_2_cars_service.repositories.CarRepository;
-
 import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.List;
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+
+//switch AutoConfigureTestDatabase with TestPropertySource to use a real database
+//@AutoConfigureTestDatabase
+@TestPropertySource(locations = "application-integrationtest.properties")
 public class CarControllerIT {
 
     @LocalServerPort
@@ -45,7 +48,7 @@ public class CarControllerIT {
     @DisplayName("Test POST request to create a car")
     public void whenPostCar_thenCreateCar() throws Exception {
         Car car = new Car("Ford", "Mustang");
-        ResponseEntity<Car> entity = restTemplate.postForEntity("/api/cars", car, Car.class);
+        restTemplate.postForEntity("/api/cars", car, Car.class);
 
         List<Car> found = repository.findAll();
         assertThat(found).extracting(Car::getMaker).containsOnly(car.getMaker());
@@ -97,7 +100,6 @@ public class CarControllerIT {
         
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         assertThat(response.getBody()).isNull();
-
     }
 
     
