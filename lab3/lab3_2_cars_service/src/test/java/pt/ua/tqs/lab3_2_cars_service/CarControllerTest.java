@@ -53,7 +53,7 @@ public class CarControllerTest {
             .andExpect(jsonPath("$.maker", is("Ford")))
             .andExpect(jsonPath("$.model", is("Mustang")));
 
-        //verify if the save() method was invoked
+        //verify if the save method was invoked
         verify(service, times(1)).saveCar(any());
     }
 
@@ -82,7 +82,7 @@ public class CarControllerTest {
             .andExpect(jsonPath("$[2].maker", is(car3.getMaker())))
             .andExpect(jsonPath("$[2].model", is(car3.getModel())));
 
-        //verify if the getAllCars() from service was invoked
+        //verify if the getAllCars method from service was invoked
         verify(service, times(1)).getAllCars();
     }
 
