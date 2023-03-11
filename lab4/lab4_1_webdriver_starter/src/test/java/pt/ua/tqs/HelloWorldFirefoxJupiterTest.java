@@ -7,7 +7,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class HelloWorldChromeJupiterTest {
+public class HelloWorldFirefoxJupiterTest {
     
     private WebDriver driver;
 
@@ -23,6 +23,7 @@ public class HelloWorldChromeJupiterTest {
 
     @Test
     void test() {
+        
         // Exercise
         String sutUrl = "https://bonigarcia.dev/selenium-webdriver-java/";
         driver.get(sutUrl);
