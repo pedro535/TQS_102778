@@ -1,4 +1,3 @@
 # Lab 4
 
-## UAT - User acceptance tests
-
+## Acceptance testing with web automation (Selenium)
