@@ -8,7 +8,7 @@ public class FlightsPage {
 
     private WebDriver driver;
 
-    private By flightButton;
+    private By flightButton; //Not using @Find in order to select the button by number!
 
     public FlightsPage(WebDriver driver) {
         this.driver = driver;
@@ -21,7 +21,7 @@ public class FlightsPage {
      */
 
     public ReservationPage chooseFlight(int flightIdx) {
-        flightButton = By.cssSelector("tr:nth-child(" + flightIdx +") .btn");
+        flightButton = By.cssSelector("tr:nth-child(" + flightIdx + ") .btn");
         driver.findElement(flightButton).click();
         return new ReservationPage(this.driver);
     }

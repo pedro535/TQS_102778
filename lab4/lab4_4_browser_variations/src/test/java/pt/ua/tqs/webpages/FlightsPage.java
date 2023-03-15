@@ -8,7 +8,7 @@ public class FlightsPage {
 
     private WebDriver driver;
 
-    private By flightButton;
+    private By flightButton;   //Not using @Find in order to select the button by number!
 
     public FlightsPage(WebDriver driver) {
         this.driver = driver;

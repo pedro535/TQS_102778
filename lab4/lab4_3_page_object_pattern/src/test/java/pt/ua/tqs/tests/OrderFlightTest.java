@@ -2,11 +2,7 @@ package pt.ua.tqs.tests;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
-import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import io.github.bonigarcia.seljup.SeleniumJupiter;
 import pt.ua.tqs.webpages.ConfirmationPage;
@@ -18,7 +14,7 @@ import pt.ua.tqs.webpages.ReservationPage;
 public class OrderFlightTest {
 
     @Test
-    @DisplayName("Order a flight test using Page Object Pattern (POM)")
+    @DisplayName("Order a flight using Page Object Pattern")
     public void testOrderFlight(FirefoxDriver driver) {
 
         //Homepage
