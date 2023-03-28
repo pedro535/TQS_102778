@@ -1,4 +1,4 @@
-# Lab 6.2
+# Lab 6.2 - Technicaldebt(Cars)
 
 ## Technical debt
 
