@@ -1,6 +1,6 @@
 # Lab 6.2 - Technicaldebt(Cars)
 
-## Technical debt
+## A - Technical debt
 
 ![Results1](images/analysis1.png)
 
@@ -11,10 +11,10 @@ Technical debt in SonarQube refers to the amount of effort required to fix all t
 Given this, a technical debt of 50 minutes means that it would take 50 minutes to fix all code smells present in the codebase.
 
 
+<br>
 
 
-
-## Code Coverage
+## D - Code Coverage
 
 ![Results1](images/code_coverage_1.png)
 ![Results1](images/code_coverage_2.png)

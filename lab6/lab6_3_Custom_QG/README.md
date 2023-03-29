@@ -10,7 +10,6 @@ After performing static code analysis on IES project the result obtained is the 
 
 We can create a custom Quality Gate to check the quality of the code.
 
-![Results1](./images/logipack_QualityGate.png)
 
 The conditions selected for the Quality Gate are:
 
@@ -21,6 +20,19 @@ The conditions selected for the Quality Gate are:
 - Security Hotspots Reviewed
 - Security Rating
 
+![Results1](./images/logipack_QualityGate.png)
+
+**Why did we choose these conditions?**
+
+- **Duplicated lines**: We decided to use the condition "Duplicated lines" to check where we are repeating code. This analysis is crucial to develop reusable and maintainable code.
+
+- **Maintainability Rating**: Whenever we are developing a project, it is important to write code that is easy to understand and maintain, because in a real-world scenario, the code will be read and modified by different members of the team.
+
+- **Major Issues and Reliability Rating**: when developing software it is essential to know if it acts as expected.
+
+- **Security Hotspots Reviewed and Security Rating**: It is important to know if the code is secure and does not have any vulnerability that could be exploited by a malicious user in the future.
+
+<br>
 
 ## B - Break Quality Gate
 
