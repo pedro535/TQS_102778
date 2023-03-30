@@ -1,0 +1,26 @@
+name: Automated tests
+
+on:
+  push:
+    paths: [ HW1/airwatch/** ]
+    branches: [ main ]
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Check location
+        run: ls -a
+      - name: Run Maven Test goal
+        run: |
+            cd ${{ github.workspace }}/HW1/airwatch 
+            mvn test
+
+
