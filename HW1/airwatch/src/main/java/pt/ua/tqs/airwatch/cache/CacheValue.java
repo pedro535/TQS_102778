@@ -12,6 +12,12 @@ public class CacheValue<T> {
     }
 
 
+    public boolean isExpired() {
+        //verify if this key expired
+        return true;
+    }
+
+    
     public T getValue() {
         return value;
     }
@@ -22,9 +28,5 @@ public class CacheValue<T> {
     }
 
 
-    public boolean isExpired() {
-        //verify if this key expired
-        return true;
-    }
     
 }
