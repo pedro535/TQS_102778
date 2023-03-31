@@ -1,16 +1,19 @@
 package pt.ua.tqs.airwatch.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@NoArgsConstructor
 @Getter
 @Setter
 public class Coordinates {
 
-    private String lat;
-    private String lon;
+    private Double lat;
+    private Double lon;
+
+    public Coordinates(Double lat, Double lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
     
 }
