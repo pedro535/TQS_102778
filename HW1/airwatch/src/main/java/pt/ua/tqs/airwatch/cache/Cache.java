@@ -26,33 +26,45 @@ public class Cache<T> implements CacheI<T> {
     }
 
     
-    public T put(String k, T v) {
-        return null;
+    public void put(String k, T v) {
+        map.put(k, new CacheValue<>(v, TTL));
     }
     
     
     public T get(String k) {
+            
+        if (map.containsKey(k)) {
+            hits++;
+            return map.get(k).getValue();
+        }
+        
+        misses++;
         return null;
     }
     
     
-    public T remove(String v) {
+    public T remove(String k) {
+        
+        if (map.containsKey(k)) {
+            return map.remove(k).getValue();
+        }
+
         return null;
     }
     
     
     public int getHits() {
-        return 0;
+        return hits;
     }
     
     
     public int getMisses() {
-        return 0;
+        return misses;
     }
     
     
     public int getTotalRequests() {
-        return 0;
+        return (hits + misses);
     }
     
     
@@ -82,7 +94,13 @@ public class Cache<T> implements CacheI<T> {
         }
 
         private void cleanCache() {
+
             //clean expired entries from cache
+            for (Map.Entry<String, CacheValue<T>> entry : map.entrySet()) {
+                if (entry.getValue().isExpired()) {
+                    map.remove(entry.getKey());
+                }
+            }
         }
     }
 

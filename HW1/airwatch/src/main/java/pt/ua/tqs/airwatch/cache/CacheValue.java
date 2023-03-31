@@ -13,8 +13,7 @@ public class CacheValue<T> {
 
 
     public boolean isExpired() {
-        //verify if this key expired
-        return true;
+        return System.currentTimeMillis() > expirationTime;
     }
 
     
@@ -27,6 +26,4 @@ public class CacheValue<T> {
         return expirationTime;
     }
 
-
-    
 }
