@@ -9,7 +9,6 @@ public class Cache<T> implements CacheI<T> {
     private Map<String, CacheValue<T>> map;
     private int misses;
     private int hits;
-    private int size;
     private static final long TTL = 10000L;
     private static final long CLEAN_INTERVAL = 2000L;
 
@@ -18,7 +17,6 @@ public class Cache<T> implements CacheI<T> {
         map = new ConcurrentHashMap<>();
         misses = 0;
         hits = 0;
-        size = 0;
         initializeCleaner();
     }
 
@@ -28,7 +26,7 @@ public class Cache<T> implements CacheI<T> {
     }
 
     
-    public T put(String k, CacheValue<T> v) {
+    public T put(String k, T v) {
         return null;
     }
     
@@ -64,7 +62,7 @@ public class Cache<T> implements CacheI<T> {
 
 
     public int getSize() {
-        return size;
+        return map.size();
     }
 
 
@@ -78,6 +76,7 @@ public class Cache<T> implements CacheI<T> {
                     cleanCache();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             }
         }
