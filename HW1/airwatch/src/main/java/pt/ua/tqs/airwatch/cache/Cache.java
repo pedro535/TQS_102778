@@ -1,4 +1,4 @@
-package pt.ua.tqs.airwatch.util;
+package pt.ua.tqs.airwatch.cache;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +13,7 @@ public class Cache<T> implements CacheI<T> {
     private Map<String, CacheValue<T>> map;
     private int misses;
     private int hits;
+    private int size;
     
     @Value("${cache.ttl}")
     private long ttl;
@@ -22,12 +23,13 @@ public class Cache<T> implements CacheI<T> {
         map = new HashMap<>();
         misses = 0;
         hits = 0;
+        size = 0;
     }
 
 
     @Scheduled(fixedRateString = "${cache.cleaner.interval}")
     public void cleanCache() {
-        System.out.println("DELETE CACHE!");
+        //clean expired values from cache
     }
     
     
@@ -63,6 +65,11 @@ public class Cache<T> implements CacheI<T> {
     
     public long getTtl() {
         return ttl;
+    }
+
+
+    public int getSize() {
+        return size;
     }
     
     

@@ -1,4 +1,4 @@
-package pt.ua.tqs.airwatch.util;
+package pt.ua.tqs.airwatch.cache;
 
 public interface CacheI<T> {
 
@@ -8,5 +8,6 @@ public interface CacheI<T> {
     public int getHits();
     public int getMisses();
     public int getTotalRequests();
+    public int getSize();
     
 }

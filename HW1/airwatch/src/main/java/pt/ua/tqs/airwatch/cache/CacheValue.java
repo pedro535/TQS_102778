@@ -1,4 +1,4 @@
-package pt.ua.tqs.airwatch.util;
+package pt.ua.tqs.airwatch.cache;
 
 public class CacheValue<T> {
 
