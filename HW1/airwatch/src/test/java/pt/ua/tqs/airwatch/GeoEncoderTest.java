@@ -1,12 +1,15 @@
 package pt.ua.tqs.airwatch;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import org.junit.jupiter.api.Test;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,18 +36,20 @@ public class GeoEncoderTest {
 
     @BeforeEach
     public void setup() throws IOException {
-        String url = "https://www.mapquestapi.com/geocoding/v1/address";
         String response = "{\"info\":{\"statuscode\":0,\"copyright\":{\"text\":\"© 2022 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"imageAltText\":\"© 2022 MapQuest, Inc.\"},\"messages\":[]},\"options\":{\"maxResults\":-1,\"ignoreLatLngInput\":false},\"results\":[{\"providedLocation\":{\"location\":\"Aveiro,PT\"},\"locations\":[{\"street\":\"\",\"adminArea6\":\"\",\"adminArea6Type\":\"Neighborhood\",\"adminArea5\":\"Aveiro\",\"adminArea5Type\":\"City\",\"adminArea4\":\"Aveiro\",\"adminArea4Type\":\"County\",\"adminArea3\":\"\",\"adminArea3Type\":\"State\",\"adminArea1\":\"PT\",\"adminArea1Type\":\"Country\",\"postalCode\":\"\",\"geocodeQualityCode\":\"A5XAX\",\"geocodeQuality\":\"CITY\",\"dragPoint\":false,\"sideOfStreet\":\"N\",\"linkId\":\"0\",\"unknownInput\":\"\",\"type\":\"s\",\"latLng\":{\"lat\":40.64123,\"lng\":-8.65391},\"displayLatLng\":{\"lat\":40.64123,\"lng\":-8.65391},\"mapUrl\":\"\"}]}]}";
 
         //stubbing
-        when(httpClient.httpGet(url)).thenReturn(response);
+        when(httpClient.httpGet(anyString())).thenReturn(response);
+
+        //setup geoEncoder api
+        geoEncoder.setBaseUrl("https://www.mapquestapi.com/geocoding/v1/address");
+        geoEncoder.setApiKey("DSjw4k3nJhucu4ORUPSLJOXHbc5JGqq5");
     }
 
 
     @Test
     @DisplayName("When getLocationDetails(), then return a location object with Location, CountryCode and Coordinates")
-    public void whenGetLocation_thenReturnLocationDetails() throws IOException {
-        String url = "https://www.mapquestapi.com/geocoding/v1/address";
+    public void whenGetLocation_thenReturnLocationDetails() throws IOException, URISyntaxException, ParseException {
         String city = "Aveiro";
         String countryCode = "PT";
 
@@ -54,11 +59,11 @@ public class GeoEncoderTest {
         //assert and verify
         assertThat(location.getLocationName()).isEqualTo("Aveiro");
         assertThat(location.getCountryCode()).isEqualTo("PT");
-        assertThat(location.getCoord().getLat()).isEqualTo("40.65695");
-        assertThat(location.getCoord().getLon()).isEqualTo("-7.91463");
+        assertThat(location.getCoord().getLat()).isEqualTo(40.64123);
+        assertThat(location.getCoord().getLon()).isEqualTo(-8.65391);
 
         //verify
-        verify(httpClient, times(1)).httpGet(url);
+        verify(httpClient, times(1)).httpGet(anyString());
     }
     
     
