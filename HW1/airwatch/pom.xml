@@ -58,12 +58,13 @@
             <version>4.5.13</version>
         </dependency>
 
-		<!-- json tools -->
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
+		<!-- GSON: json tool -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
+		</dependency>
+		
 	</dependencies>
 
 
