@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.junit.jupiter.api.Test;
-import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,7 +48,7 @@ public class GeoEncoderTest {
 
     @Test
     @DisplayName("When getLocationDetails(), then return a location object with Location, CountryCode and Coordinates")
-    public void whenGetLocation_thenReturnLocationDetails() throws IOException, URISyntaxException, ParseException {
+    public void whenGetLocation_thenReturnLocationDetails() throws IOException, URISyntaxException {
         String city = "Aveiro";
         String countryCode = "PT";
 
