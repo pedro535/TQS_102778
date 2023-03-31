@@ -6,7 +6,7 @@ public class CacheValue<T> {
     private long expirationTime;
 
     
-    public CacheValue(T value, int ttl) {
+    public CacheValue(T value, long ttl) {
         this.value = value;
         expirationTime = System.currentTimeMillis() + ttl;
     }

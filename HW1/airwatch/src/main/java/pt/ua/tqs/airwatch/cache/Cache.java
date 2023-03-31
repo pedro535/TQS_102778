@@ -1,37 +1,32 @@
 package pt.ua.tqs.airwatch.cache;
 
-import java.util.HashMap;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import java.util.concurrent.ConcurrentHashMap;
 
 
-@Component
 public class Cache<T> implements CacheI<T> {
 
     private Map<String, CacheValue<T>> map;
     private int misses;
     private int hits;
     private int size;
-    
-    @Value("${cache.ttl}")
-    private long ttl;
+    private static final long TTL = 10000L;
+    private static final long CLEAN_INTERVAL = 2000L;
 
 
     public Cache() {
-        map = new HashMap<>();
+        map = new ConcurrentHashMap<>();
         misses = 0;
         hits = 0;
         size = 0;
+        initializeCleaner();
     }
 
 
-    @Scheduled(fixedRateString = "${cache.cleaner.interval}")
-    public void cleanCache() {
-        //clean expired values from cache
+    private void initializeCleaner() {
+        new CacheCleaner().start();
     }
-    
+
     
     public T put(String k, CacheValue<T> v) {
         return null;
@@ -63,18 +58,34 @@ public class Cache<T> implements CacheI<T> {
     }
     
     
-    public long getTtl() {
-        return ttl;
+    public long getTTL() {
+        return TTL;
     }
 
 
     public int getSize() {
         return size;
     }
-    
-    
-    public void setTTL(long ttl) {
-        this.ttl = ttl;
+
+
+    class CacheCleaner extends Thread {
+        
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(CLEAN_INTERVAL);
+                    cleanCache();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        private void cleanCache() {
+            //clean expired entries from cache
+        }
     }
+
 
 }
