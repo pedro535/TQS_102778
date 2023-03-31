@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.apache.http.client.utils.URIBuilder;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +33,7 @@ public class GeoEncoder {
     }
 
 
-    public Location getLocationDetails(String location, String countryCode) throws IOException, URISyntaxException, ParseException {
+    public Location getLocationDetails(String location, String countryCode) throws IOException, URISyntaxException {
         
         //build uri
         URIBuilder uriBuilder = new URIBuilder(baseUrl);
@@ -45,23 +44,29 @@ public class GeoEncoder {
         String apiResponse = httpClient.httpGet(uriBuilder.build().toString());
 
         //get parts from response till reaching the coordinates
-        JSONObject obj = (JSONObject) new JSONParser().parse(apiResponse);
-        obj = (JSONObject) ((JSONArray) obj.get("results")).get(0);
+        JsonElement element = JsonParser.parseString(apiResponse);
+        JsonElement obj = element.getAsJsonObject().get("results");
 
-        if (((JSONArray) obj.get("locations")).isEmpty()) {
+        if (obj.getAsJsonArray().size() == 0) {
             return null;
         }
 
-        obj = (JSONObject) ((JSONArray) obj.get("locations")).get(0);
-        obj = (JSONObject) obj.get("latLng");
+        obj = obj.getAsJsonArray().get(0);
+        obj = obj.getAsJsonObject().get("locations");
+
+        if (obj.getAsJsonArray().size() == 0) {
+            return null;
+        }
+
+        obj = obj.getAsJsonArray().get(0);
+        obj = obj.getAsJsonObject().get("latLng");
 
         //create coordinates object
-        Double lat = (Double) obj.get("lat");
-        Double lon = (Double) obj.get("lng");
+        Double lat = obj.getAsJsonObject().get("lat").getAsDouble();
+        Double lon = obj.getAsJsonObject().get("lng").getAsDouble();
         Coordinates coords = new Coordinates(lat, lon);
-        
-        return new Location(location, countryCode, coords);
 
+        return new Location(location, countryCode, coords);
     }
     
 }
