@@ -24,10 +24,10 @@ public class CacheTest {
     @Test
     @DisplayName("When cache is constructed, it should be empty")
     public void whenCacheIsConstructed_thenIsEmpty() {
-        assertThat(cache.getSize()).isEqualTo(0);
-        assertThat(cache.getHits()).isEqualTo(0);
-        assertThat(cache.getMisses()).isEqualTo(0);
-        assertThat(cache.getTotalRequests()).isEqualTo(0);
+        assertThat(cache.getSize()).isZero();
+        assertThat(cache.getHits()).isZero();
+        assertThat(cache.getMisses()).isZero();
+        assertThat(cache.getTotalRequests()).isZero();
     }
 
 
@@ -63,8 +63,8 @@ public class CacheTest {
 
 
     @Test
-    @DisplayName("When n elements are added to the cache, the size should be incremented")
-    public void whenElementsAreAdded_thenSizeIncreases() {
+    @DisplayName("When n elements are added to the cache, the size increase")
+    public void whenElementsAreAdded_thenSizeIncrease() {
         String keys[] = {"1", "2", "3"};
         String names[] = {"John Smith", "Mary Jane", "Peter Parker"};
 
@@ -79,8 +79,8 @@ public class CacheTest {
 
 
     @Test
-    @DisplayName("When get n elements from empty cache, the misses increment")
-    public void whenGetElementsFromEmptyCache_thenMissesIncrement() {
+    @DisplayName("When get n elements from empty cache, the misses increase")
+    public void whenGetElementsFromEmptyCache_thenMissesIncrease() {
         String keys[] = {"1", "2", "3"};
 
         //execute
@@ -94,8 +94,8 @@ public class CacheTest {
 
 
     @Test
-    @DisplayName("When get n elements from non empty cache, the hits increment")
-    public void whenGetElementsFromNonEmptyCache_thenHitsIncrement() {
+    @DisplayName("When get n elements from non empty cache, the hits increase")
+    public void whenGetElementsFromNonEmptyCache_thenHitsIncrease() {
         String keys[] = {"1", "2", "3"};
         String names[] = {"John Smith", "Mary Jane", "Peter Parker"};
 
@@ -114,8 +114,8 @@ public class CacheTest {
 
 
     @Test
-    @DisplayName("When get n elements from the cache, the total requests increment")
-    public void whenGetElementsFromCache_thenRequestsIncrement() {
+    @DisplayName("When get n elements from the cache, the total requests increase")
+    public void whenGetElementsFromCache_thenRequestsIncrease() {
         String keys[] = {"1", "2", "3"};
         String nonExistingKeys[] = {"4", "5"};
         String names[] = {"John Smith", "Mary Jane", "Peter Parker"};
@@ -165,7 +165,6 @@ public class CacheTest {
     public void whenGetElementAfterTTL_thenReturnNull() {
         String key = "1";
         String value = "John Smith";
-        String res = "";
 
         //execute
         cache.put(key, value);
