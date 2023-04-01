@@ -1,4 +1,4 @@
-package pt.ua.tqs.airwatch;
+package pt.ua.tqs.airwatch.UnitTests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
