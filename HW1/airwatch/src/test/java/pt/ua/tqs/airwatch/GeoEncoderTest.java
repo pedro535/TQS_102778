@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import pt.ua.tqs.airwatch.model.Location;
-import pt.ua.tqs.airwatch.util.GeoEncoder;
+import pt.ua.tqs.airwatch.service.GeoEncoder;
 import pt.ua.tqs.airwatch.util.IHttpClient;
 
 import static org.assertj.core.api.Assertions.*;
@@ -35,22 +35,21 @@ public class GeoEncoderTest {
 
     @BeforeEach
     public void setup() throws IOException {
-        String response = "{\"info\":{\"statuscode\":0,\"copyright\":{\"text\":\"© 2022 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"imageAltText\":\"© 2022 MapQuest, Inc.\"},\"messages\":[]},\"options\":{\"maxResults\":-1,\"ignoreLatLngInput\":false},\"results\":[{\"providedLocation\":{\"location\":\"Aveiro,PT\"},\"locations\":[{\"street\":\"\",\"adminArea6\":\"\",\"adminArea6Type\":\"Neighborhood\",\"adminArea5\":\"Aveiro\",\"adminArea5Type\":\"City\",\"adminArea4\":\"Aveiro\",\"adminArea4Type\":\"County\",\"adminArea3\":\"\",\"adminArea3Type\":\"State\",\"adminArea1\":\"PT\",\"adminArea1Type\":\"Country\",\"postalCode\":\"\",\"geocodeQualityCode\":\"A5XAX\",\"geocodeQuality\":\"CITY\",\"dragPoint\":false,\"sideOfStreet\":\"N\",\"linkId\":\"0\",\"unknownInput\":\"\",\"type\":\"s\",\"latLng\":{\"lat\":40.64123,\"lng\":-8.65391},\"displayLatLng\":{\"lat\":40.64123,\"lng\":-8.65391},\"mapUrl\":\"\"}]}]}";
-
-        //stubbing
-        when(httpClient.httpGet(anyString())).thenReturn(response);
-
         //setup geoEncoder api
-        geoEncoder.setBaseUrl("https://www.mapquestapi.com/geocoding/v1/address");
-        geoEncoder.setApiKey("DSjw4k3nJhucu4ORUPSLJOXHbc5JGqq5");
+        geoEncoder.setBaseUrl("http://api.openweathermap.org/geo/1.0/direct");
+        geoEncoder.setApiKey("04c214fc4b062348b7ab5bb426a0151b");
     }
 
 
     @Test
-    @DisplayName("When getLocationDetails(), then return a location object with Location, CountryCode and Coordinates")
-    public void whenGetLocation_thenReturnLocationDetails() throws IOException, URISyntaxException {
+    @DisplayName("When a valid location is given, then return a location object with Location, CountryCode and Coordinates")
+    public void whenValidLocation_thenReturnLocationDetails() throws IOException, URISyntaxException {
         String city = "Aveiro";
         String countryCode = "PT";
+
+        //stubbing
+        String response = "[{\"name\":\"Aveiro\",\"local_names\":{\"pt\":\"Aveiro\",\"el\":\"Αβέιρο\",\"hu\":\"Aveiro\",\"ar\":\"آويرو\",\"lt\":\"Aveiras\",\"ru\":\"Авейру\"},\"lat\":40.640496,\"lon\":-8.6537841,\"country\":\"PT\"}]";
+        when(httpClient.httpGet(anyString())).thenReturn(response);
 
         //execute
         Location location = geoEncoder.getLocationDetails(city, countryCode);
@@ -58,8 +57,28 @@ public class GeoEncoderTest {
         //assert and verify
         assertThat(location.getLocationName()).isEqualTo("Aveiro");
         assertThat(location.getCountryCode()).isEqualTo("PT");
-        assertThat(location.getCoord().getLat()).isEqualTo(40.64123);
-        assertThat(location.getCoord().getLon()).isEqualTo(-8.65391);
+        assertThat(location.getCoord().getLat()).isEqualTo(40.640496);
+        assertThat(location.getCoord().getLon()).isEqualTo(-8.6537841);
+
+        //verify
+        verify(httpClient, times(1)).httpGet(anyString());
+    }
+
+
+    @Test
+    @DisplayName("When an invalid location is given, then return null")
+    public void whenInvalidLocation_thenReturnNull() throws IOException, URISyntaxException {
+        String city = "123456";
+        String countryCode = "PT";
+
+        //stubbing
+        when(httpClient.httpGet(anyString())).thenReturn("[]");
+
+        //execute
+        Location location = geoEncoder.getLocationDetails(city, countryCode);
+
+        //assert and verify
+        assertThat(location).isNull();
 
         //verify
         verify(httpClient, times(1)).httpGet(anyString());
