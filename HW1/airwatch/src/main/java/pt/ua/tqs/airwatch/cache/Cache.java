@@ -2,8 +2,10 @@ package pt.ua.tqs.airwatch.cache;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class Cache<T> implements CacheI<T> {
 
     private Map<String, CacheValue<T>> map;
