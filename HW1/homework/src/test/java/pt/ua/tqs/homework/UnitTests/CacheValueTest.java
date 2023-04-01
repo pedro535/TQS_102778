@@ -11,6 +11,7 @@ public class CacheValueTest {
 
     private CacheValue<String> cacheValue;
 
+
     @BeforeEach
     public void setup() {
         cacheValue = new CacheValue<String>("John Smith", 1000L);
@@ -18,7 +19,7 @@ public class CacheValueTest {
 
 
     @Test
-    @DisplayName("When a cacheValue is created, after the ttl, isExpired() return true")
+    @DisplayName("After the ttl elapsed, isExpired() should return true")
     public void whenTtlElapsed_thenIsExpiredIsTrue() {
 
         //execute
@@ -32,5 +33,4 @@ public class CacheValueTest {
         assertThat(cacheValue.isExpired()).isTrue();
     }
 
-    
 }
