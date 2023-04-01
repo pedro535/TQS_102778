@@ -2,7 +2,7 @@ name: Automated tests
 
 on:
   push:
-    paths: [ HW1/airwatch/** ]
+    paths: [ HW1/homework/** ]
     branches: [ main ]
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
         run: ls -a
       - name: Run Maven Test goal
         run: |
-            cd ${{ github.workspace }}/HW1/airwatch 
+            cd ${{ github.workspace }}/HW1/homework 
             mvn test
 
 
