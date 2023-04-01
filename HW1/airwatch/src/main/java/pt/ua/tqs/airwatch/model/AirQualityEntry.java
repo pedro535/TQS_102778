@@ -1,6 +1,5 @@
 package pt.ua.tqs.airwatch.model;
 
-import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,13 +12,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AirQuality {
+public class AirQualityEntry {
+    
+    @JsonProperty("airClassification")
+    private Map<String, Integer> main;
 
-    private String location;
-    private String countryCode;
-    private Map<String, Double> coord;
+    private Map<String, Double> components;
 
-    @JsonProperty("results")
-    private List<AirQualityEntry> list;
+    @JsonProperty("timestamp")
+    private long dt;
     
 }
