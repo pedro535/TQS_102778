@@ -1,8 +1,10 @@
+import MyNavbar from "../components/MyNavbar"
+
 function AirQualityForecast() {
 
     return (
         <>
-            <p className="text-3xl font-extrabold">AirQualityForecast</p>
+            <MyNavbar />
         </>
     )
     
