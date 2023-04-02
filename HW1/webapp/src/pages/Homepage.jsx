@@ -34,7 +34,7 @@ function Homepage() {
 
 
                 <div className='relative left-1/2 -translate-x-1/2 xl:w-3/4 my-16  px-8'>
-                    <p className="text-xl text-white">Air Quality results for Aveiro</p>
+                    <p className="text-xl text-white">Today's Air Quality in {"--CITY--"}</p>
 
                     {/* FOR LOOP HERE */}
                     <ResultCard />

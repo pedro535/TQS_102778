@@ -18,13 +18,13 @@ function AirQualityCurrent() {
                 <form>
                     <div className="w-1/2 left-1/2 relative -translate-x-1/2">
                         <div className="my-5">
-                            <label htmlFor="email" className="block mb-1 text-sm font-medium text-white">City</label>
-                            <input type="text" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="City name" required />
+                            <label htmlFor="city" className="block mb-1 text-sm font-medium text-white">City</label>
+                            <input type="text" id="city" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="City name" required />
                         </div>
 
                         <div className="my-5">
-                            <label htmlFor="password" className="block mb-1 text-sm font-medium text-white">Country Code</label>
-                            <input type="text" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Country  (e.g. PT)" required />
+                            <label htmlFor="countryCode" className="block mb-1 text-sm font-medium text-white">Country Code</label>
+                            <input type="text" id="countryCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Country  (e.g. PT)" required />
                         </div>
 
                         <div className="my-5 text-center">
