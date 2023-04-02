@@ -1,8 +1,20 @@
 import MyNavbar from "../components/MyNavbar"
 import ResultCard from "../components/ResultCard"
 import { BiSearchAlt } from "react-icons/bi"
+import { useState } from "react"
 
 function AirQualityForecast() {
+
+    const [daysList, setDaysList] = useState([]);
+    const [activeDay, setActiveDay] = useState([]);
+
+
+    const getForecast = () => {
+        setDaysList(Object.keys(results));
+        setActiveDay(Object.keys(results)[0]);
+        console.log(daysList);
+    }
+
 
     return (
         <>
@@ -33,7 +45,7 @@ function AirQualityForecast() {
                         </div>
 
                         <div className="my-5 text-center">
-                            <button type="submit" className="my-btn mx-4" onClick={() => {navigate('/current')}}>
+                            <button className="my-btn mx-4" onClick={getForecast}>
                                 Search
                                 <BiSearchAlt className='inline-block ml-5' size={25} />
                             </button>
@@ -44,11 +56,12 @@ function AirQualityForecast() {
                 <div className='relative left-1/2 -translate-x-1/2 xl:w-3/4 my-16  px-8'>
                     <p className="text-xl text-white">Today's Air Quality in {"--CITY--"}</p>
 
+
+
                     {/* FOR LOOP HERE */}
-                    <ResultCard />
+                    {/* <ResultCard /> */}
 
                 </div>
-
             </div>
         </>
     )

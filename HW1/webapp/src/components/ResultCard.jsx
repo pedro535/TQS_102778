@@ -2,29 +2,33 @@ import { Card } from 'flowbite-react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-function AirQualityBanner() {
+const chartStyle = {
+    path: {stroke: '#22c55e'},
+    text: {fill: '#000000', fontSize: '30px', fontWeight: '500'},
+    trail: {stroke: '#cbd5e1'}
+}
 
-    const chartStyle = {
-        path: {stroke: '#22c55e'},
-        text: {fill: '#000000', fontSize: '30px', fontWeight: '500'},
-        trail: {stroke: '#cbd5e1'}
-    }
+
+function AirQualityBanner(props) {
+    const { dateTime, classification, components } = props.results;
+    const airClassification = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+    const airClassificationPercentage = [95, 80, 60, 40, 20];
 
     return (
-
         <>
             <Card className='my-4'>
                 <div className='grid grid-cols-12 gap-8'>
+
                     <div className='col-span-2 p-1'>
-                        <CircularProgressbar value={80} text={"2"} styles={chartStyle} />
+                        <CircularProgressbar value={airClassificationPercentage[classification - 1]} text={classification} styles={chartStyle} />
                         <div className='text-center mt-2 font-bold'>
-                            Good
+                            {airClassification[classification - 1]}
                         </div>
                     </div>
 
                     <div className='col-span-10'>
-                        <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white inline mr-2">April 10, 2021</h5>
-                        <span className='font-light text-sm'>14:00</span>
+                        <p className="text-xl font-bold tracking-tight text-gray-900 dark:text-white inline mr-2">{dateTime.split(" ")[0]}</p>
+                        <span className='font-light text-sm'>{dateTime.split(" ")[1]}</span>
 
                         <div className="relative overflow-x-auto mt-4 sm:rounded-lg shadow-sm">
                             <table className="w-full text-sm text-left text-blue-100 dark:text-blue-100">
@@ -42,19 +46,20 @@ function AirQualityBanner() {
                                 </thead>
                                 <tbody>
                                     <tr className="text-xs text-black uppercase bg-white ">
-                                        <td className="px-6 py-4">203.61</td>
-                                        <td className="px-6 py-4">0.0</td>
-                                        <td className="px-6 py-4">2.66</td>
-                                        <td className="px-6 py-4">62.64</td>
-                                        <td className="px-6 py-4">1.24</td>
-                                        <td className="px-6 py-4">03.89</td>
-                                        <td className="px-6 py-4">7.01</td>
-                                        <td className="px-6 py-4">1.44</td>
+                                        <td className="px-6 py-4">{components.co}</td>
+                                        <td className="px-6 py-4">{components.no}</td>
+                                        <td className="px-6 py-4">{components.no2}</td>
+                                        <td className="px-6 py-4">{components.o3}</td>
+                                        <td className="px-6 py-4">{components.so2}</td>
+                                        <td className="px-6 py-4">{components.pm2_5}</td>
+                                        <td className="px-6 py-4">{components.pm10}</td>
+                                        <td className="px-6 py-4">{components.nh3}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
                 </div>
             </Card>
         </>

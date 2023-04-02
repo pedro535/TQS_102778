@@ -37,7 +37,7 @@ function Homepage() {
                     <p className="text-xl text-white">Today's Air Quality in {"--CITY--"}</p>
 
                     {/* FOR LOOP HERE */}
-                    <ResultCard />
+                    {/* <ResultCard /> */}
 
                 </div>
             </div>

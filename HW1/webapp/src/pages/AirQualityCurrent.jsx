@@ -1,8 +1,92 @@
+import { useState } from "react"
+import axios from "axios"
 import MyNavbar from "../components/MyNavbar"
 import ResultCard from "../components/ResultCard"
+import { Spinner } from "flowbite-react"
 import { BiSearchAlt } from "react-icons/bi"
+import Results from "../components/Results"
+
+
+const baseURL = "http://localhost:8080/api/airquality/current"
 
 function AirQualityCurrent() {
+
+    const [response, setResponse] = useState({});
+    const [showResults, setShowResults] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
+
+
+    const handleSubmit = (event) => {
+
+        //reset state
+        setShowResults(false);
+        setResponse({});
+        setError(false);
+        setLoading(true);
+
+        event.preventDefault();
+        const city = event.target.city.value;
+        const countryCode = event.target.countryCode.value;
+
+        axios.get(baseURL, {
+            params: {
+                "city": city,
+                "countryCode": countryCode
+            }
+        })
+        .then((response) => {
+            setResponse(response.data);
+            setLoading(false);
+            setShowResults(true);
+        })
+        .catch((error) => {
+            setLoading(false);
+            setError(true);
+        })
+    }
+
+
+
+    const renderLoading = () => {
+        return (
+            <div className='w-fit mx-auto'>
+                <Spinner size='xl' />
+            </div>
+        )
+    }
+
+
+
+    const renderError = () => {
+        return (
+            <div className='w-fit mx-auto'>
+                <p className="text-xl text-white">There are no results for this location</p>
+            </div>
+        )
+    }
+
+
+
+    const renderResults = () => {
+        const results = response.results;
+        const days = Object.keys(results);
+
+        return (
+            <div>
+                <p className="text-xl text-white">Today's Air Quality in {response.city}</p>
+                
+                {days.map((d) => {
+                        return (
+                            <Results key={d} results={results[d]} />
+                        )
+                })}
+            </div>
+        )
+    }
+
+
 
     return (
         <>
@@ -15,20 +99,20 @@ function AirQualityCurrent() {
                 </div>
 
                 
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="w-1/2 left-1/2 relative -translate-x-1/2">
                         <div className="my-5">
                             <label htmlFor="city" className="block mb-1 text-sm font-medium text-white">City</label>
-                            <input type="text" id="city" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="City name" required />
+                            <input type="text" name="city" id="city" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="City name" required />
                         </div>
 
                         <div className="my-5">
                             <label htmlFor="countryCode" className="block mb-1 text-sm font-medium text-white">Country Code</label>
-                            <input type="text" id="countryCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Country  (e.g. PT)" required />
+                            <input type="text" name="countryCode" id="countryCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Country  (e.g. PT)" required />
                         </div>
 
                         <div className="my-5 text-center">
-                            <button type="submit" className="my-btn mx-4" onClick={() => {navigate('/current')}}>
+                            <button type="submit" className="my-btn mx-4">
                                 Search
                                 <BiSearchAlt className='inline-block ml-5' size={25} />
                             </button>
@@ -38,11 +122,9 @@ function AirQualityCurrent() {
 
 
                 <div className='relative left-1/2 -translate-x-1/2 xl:w-3/4 my-16  px-8'>
-                    <p className="text-xl text-white">Today's Air Quality in {"--CITY--"}</p>
-
-                    {/* FOR LOOP HERE */}
-                    <ResultCard />
-
+                    {loading ? renderLoading() : <></>}
+                    {showResults ? renderResults() : <></>}
+                    {error ? renderError() : <></>}
                 </div>
 
             </div>
