@@ -76,12 +76,14 @@ function AirQualityCurrent() {
         return (
             <div>
                 <p className="text-xl text-white">Today's Air Quality in {response.city}</p>
-                
-                {days.map((d) => {
+
+                <div>
+                    {results[days[0]].map((r) => {
                         return (
-                            <Results key={d} results={results[d]} />
+                            <ResultCard key={r.dateTime} results={r} />
                         )
-                })}
+                    })}
+                </div>
             </div>
         )
     }
@@ -121,7 +123,7 @@ function AirQualityCurrent() {
                 </form>
 
 
-                <div className='relative left-1/2 -translate-x-1/2 xl:w-3/4 my-16  px-8'>
+                <div className='relative lg:left-1/2 lg:-translate-x-1/2 lg:w-3/4 my-16  px-4'>
                     {loading ? renderLoading() : <></>}
                     {showResults ? renderResults() : <></>}
                     {error ? renderError() : <></>}

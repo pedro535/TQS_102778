@@ -12,33 +12,27 @@ function Homepage() {
             <MyNavbar />
 
             <div className="container mx-auto py-10">
-                <div className="text-center mt-10 mb-14">
-                    <p className="text-5xl font-extrabold text-white">Air Quality</p>
-                </div>
-
-
-                <div className="flex justify-center">
-                    <div className="">
-                        <button className="my-btn w-96 mx-4" onClick={() => {navigate('/current')}}>
-                            Today's Air Quality
-                            <BiSearchAlt className='inline-block ml-5' size={25} />
-                        </button>
+                <div className='mt-28'>
+                    <div className="text-center my-14">
+                        <p className="text-5xl font-extrabold text-white">Air Quality</p>
+                        <p className="mt-4 text-3xl font-extralight text-white">Stay informed about the air you breathe!</p>
                     </div>
-                    <div className=" text-right">
-                        <button className="my-btn w-96 mx-4" onClick={() => {navigate('/forecast')}}>
-                            Air Quality Forecast
-                            <BiSearchAlt className='inline-block ml-5' size={25} />
-                        </button>
+
+
+                    <div className="flex justify-center">
+                        <div className="">
+                            <button className="my-btn w-80 mx-2" onClick={() => {navigate('/current')}}>
+                                Today's Air Quality
+                                <BiSearchAlt className='inline-block ml-5' size={25} />
+                            </button>
+                        </div>
+                        <div className=" text-right">
+                            <button className="my-btn w-80 mx-2" onClick={() => {navigate('/forecast')}}>
+                                Air Quality Forecast
+                                <BiSearchAlt className='inline-block ml-5' size={25} />
+                            </button>
+                        </div>
                     </div>
-                </div>
-
-
-                <div className='relative left-1/2 -translate-x-1/2 xl:w-3/4 my-16  px-8'>
-                    <p className="text-xl text-white">Today's Air Quality in {"--CITY--"}</p>
-
-                    {/* FOR LOOP HERE */}
-                    {/* <ResultCard /> */}
-
                 </div>
             </div>
         </>

@@ -15,8 +15,7 @@ function Results(props) {
             </div>
         </>
     )
-    
-  }
+}
   
-  export default Results
+export default Results
   

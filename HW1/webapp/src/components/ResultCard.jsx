@@ -14,24 +14,34 @@ function AirQualityBanner(props) {
     const airClassification = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
     const airClassificationPercentage = [95, 80, 60, 40, 20];
 
+    
+    const getDateName = () => {
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const date = new Date(dateTime);
+        return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    }
+
+
     return (
         <>
             <Card className='my-4'>
-                <div className='grid grid-cols-12 gap-8'>
+                <div className='grid grid-cols-12 gap-1'>
 
-                    <div className='col-span-2 p-1'>
-                        <CircularProgressbar value={airClassificationPercentage[classification - 1]} text={classification} styles={chartStyle} />
-                        <div className='text-center mt-2 font-bold'>
-                            {airClassification[classification - 1]}
+                    <div className='col-span-2 p-1 w-3/4'>
+                        <div className='relative top-1/2 -translate-y-1/2'>
+                            <CircularProgressbar value={airClassificationPercentage[classification - 1]} text={classification} styles={chartStyle} />
+                            <div className='text-center mt-2 font-bold'>
+                                {airClassification[classification - 1]}
+                            </div>
                         </div>
                     </div>
 
                     <div className='col-span-10'>
-                        <p className="text-xl font-bold tracking-tight text-gray-900 dark:text-white inline mr-2">{dateTime.split(" ")[0]}</p>
-                        <span className='font-light text-sm'>{dateTime.split(" ")[1]}</span>
+                        <p className="text-lg font-bold tracking-tight text-gray-900 dark:text-white inline mr-3">{getDateName()}</p>
+                        <span className='font-light text-xs'>{dateTime.split(" ")[1]}</span>
 
                         <div className="relative overflow-x-auto mt-4 sm:rounded-lg shadow-sm">
-                            <table className="w-full text-sm text-left text-blue-100 dark:text-blue-100">
+                            <table className="w-full text-sm text-left">
                                 <thead className="text-xs text-black uppercase bg-gray-200 ">
                                     <tr>
                                         <th scope="col" className="px-6 py-3">CO</th>
