@@ -25,7 +25,7 @@ public class AirQualityController {
     }
 
 
-    @RequestMapping("/currentDay")
+    @RequestMapping("/current")
     public ResponseEntity<AirQuality> getCurrentDayAirQuality(@RequestParam String city, @RequestParam String countryCode) throws IOException, URISyntaxException {
         
         AirQuality results = airQualityService.getAirQuality(city, countryCode, 1);
