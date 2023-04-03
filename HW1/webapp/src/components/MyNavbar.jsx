@@ -24,6 +24,10 @@ function MyNavbar() {
                             <li>
                                 <Link className="block py-2 px-1 hover:text-gray-400 text-white font-light text-sm" to={"/forecast"}>Air Quality Forecast</Link>
                             </li>
+
+                            <li>
+                                <Link className="block py-2 px-1 hover:text-gray-400 text-white font-light text-sm" to={"/cache"}>Cache</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

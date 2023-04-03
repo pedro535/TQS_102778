@@ -3,15 +3,13 @@
 @tailwind utilities;
 
 :root {
-    background-image: linear-gradient(to bottom, #033257, #073b63, #0b4470, #0f4e7d, #12588a);
-    background-size: cover;
-    background-position: center;
+    background-image: linear-gradient(to top, #625877, #564e6d, #494363, #3d3a5a, #313050);    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
 .my-btn {
-    background-color: #16649c;
+    background-color: #6c6b84;
     color: #ffffff;
     border: none;
     border-radius: 8px;
@@ -22,5 +20,5 @@
 }
 
 .my-btn:hover {
-    background-color: #12588a;
+    background-color: #56566a;
 }

@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import ResultCard from "../components/ResultCard"
 import { BiSearchAlt } from "react-icons/bi"
 import MyNavbar from "../components/MyNavbar"
 

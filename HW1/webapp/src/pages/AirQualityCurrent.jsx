@@ -52,7 +52,7 @@ function AirQualityCurrent() {
     const renderLoading = () => {
         return (
             <div className='w-fit mx-auto'>
-                <Spinner size='xl' />
+                <Spinner color="purple" size='xl' />
             </div>
         )
     }
