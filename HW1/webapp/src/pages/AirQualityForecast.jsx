@@ -4,7 +4,7 @@ import MyNavbar from "../components/MyNavbar"
 import ResultCard from "../components/ResultCard"
 import { Spinner } from "flowbite-react"
 import { BiSearchAlt } from "react-icons/bi"
-import Results from "../components/Results"
+import Map from "../components/Map"
 
 
 const baseURL = "http://localhost:8080/api/airquality/forecast"
@@ -83,6 +83,10 @@ function AirQualityForecast() {
         return (
             <div>
                 <p className="text-xl text-white">Air Quality Forecast for {response.city}</p>
+                
+                <div className='w.full h-72 my-4'>
+                    <Map coord={response.coord} />
+                </div>
 
                 <div className="my-5">
                     {availableDates.map((d) => {

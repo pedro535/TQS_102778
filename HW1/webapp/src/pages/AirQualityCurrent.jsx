@@ -4,7 +4,7 @@ import MyNavbar from "../components/MyNavbar"
 import ResultCard from "../components/ResultCard"
 import { Spinner } from "flowbite-react"
 import { BiSearchAlt } from "react-icons/bi"
-import Results from "../components/Results"
+import Map from "../components/Map"
 
 
 const baseURL = "http://localhost:8080/api/airquality/current"
@@ -15,7 +15,6 @@ function AirQualityCurrent() {
     const [showResults, setShowResults] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-
 
 
     const handleSubmit = (event) => {
@@ -76,6 +75,10 @@ function AirQualityCurrent() {
         return (
             <div>
                 <p className="text-xl text-white">Today's Air Quality in {response.city}</p>
+                
+                <div className='w.full h-72 my-4'>
+                    <Map coord={response.coord} />
+                </div>
 
                 <div>
                     {results[days[0]].map((r) => {
