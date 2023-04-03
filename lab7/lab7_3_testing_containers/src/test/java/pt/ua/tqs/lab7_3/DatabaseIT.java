@@ -2,6 +2,7 @@ package pt.ua.tqs.lab7_3;
 
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -10,16 +11,18 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.MethodOrderer;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 
 @Testcontainers
 @SpringBootTest
-public class DatabaseTest {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class DatabaseIT {
 
     @Container
-    public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:12")
+    public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres")
         .withUsername("username")
         .withPassword("password")
         .withDatabaseName("db")
