@@ -5,8 +5,10 @@ import pt.ua.tqs.lab3_2_cars_service.domain.Car;
 import pt.ua.tqs.lab3_2_cars_service.repositories.CarRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -24,7 +26,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 @TestPropertySource(properties = "spring.jpa.hibernate.ddl-auto=create")
-public class CarControllerITests {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class CarsControllerIT {
     
     @LocalServerPort
     int localPortForTestServer;
@@ -52,6 +55,7 @@ public class CarControllerITests {
 
     @BeforeEach
     public void setUpTestCars() throws Exception{
+        repository.deleteAll(); //testcontainer content does not reset on @BeforeEach!!!
         car1 = repository.save(new Car("kia", "stinger"));
         car2 = repository.save(new Car("tesla", "model x"));
     }
@@ -67,47 +71,69 @@ public class CarControllerITests {
             .pathSegment("api", "cars", String.valueOf(car1.getCarId()))
             .build()
             .toUriString();
-
-
+            
+            
         RestAssured
-            .given()
-            .when()
-                .get(endpoint)
-            .then()
-                .statusCode(HttpStatus.OK.value())
-                .body("maker", Matchers.equalTo(car1.getMaker()))
-                .body("model", Matchers.equalTo(car1.getModel()));
-    }
-
-
+        .given()
+        .when()
+            .get(endpoint)
+        .then()
+            .statusCode(HttpStatus.OK.value())
+            .body("maker", Matchers.equalTo(car1.getMaker()))
+            .body("model", Matchers.equalTo(car1.getModel()));
+        }
+        
+        
     @Test
     @Order(2)
     void givenManyCars_whenGetCars_thenReturnJsonArray() throws Exception {
+        
+        String endpoint = UriComponentsBuilder.newInstance()
+        .scheme("http")
+        .host("127.0.0.1")
+        .port(localPortForTestServer)
+        .pathSegment("api", "cars")
+        .build()
+        .toUriString();
+        
+        RestAssured
+        .given()
+        .when()
+            .get(endpoint)
+        .then()
+            .statusCode(200)
+            .body("$", Matchers.hasSize(2))
+            .body("[0].maker", Matchers.equalTo(car1.getMaker()))
+            .body("[0].model", Matchers.equalTo(car1.getModel()))
+            .body("[1].maker", Matchers.equalTo(car2.getMaker()))
+            .body("[1].model", Matchers.equalTo(car2.getModel()));
+    }
+        
+        
+    @Test
+    @Order(3)
+    void whenGetNonExistingCar_thenNotFound() throws Exception {
+        String carId = "100";
 
         String endpoint = UriComponentsBuilder.newInstance()
             .scheme("http")
             .host("127.0.0.1")
             .port(localPortForTestServer)
-            .pathSegment("api", "cars")
+            .pathSegment("api", "cars", carId)
             .build()
             .toUriString();
 
         RestAssured
-            .given()
-            .when()
-                .get(endpoint)
-            .then()
-                .statusCode(200)
-                .body("$", Matchers.hasSize(2))
-                .body("[0].maker", Matchers.equalTo(car1.getMaker()))
-                .body("[0].model", Matchers.equalTo(car1.getModel()))
-                .body("[1].maker", Matchers.equalTo(car2.getMaker()))
-                .body("[1].model", Matchers.equalTo(car2.getModel()));
+        .given()
+        .when()
+            .get(endpoint)
+        .then()
+            .statusCode(404);
     }
 
 
     @Test
-    @Order(3)
+    @Order(4)
     void whenPostCar_thenCreateCar() throws Exception {
         Car car3 = new Car("ford", "mustang");
         repository.save(car3);
@@ -121,37 +147,13 @@ public class CarControllerITests {
             .toUriString();
 
         RestAssured
-            .given()
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(JsonUtils.toJson(car3))
-            .when()
-                .post(endpoint)
-            .then()
-                .statusCode(201)
-                .body("maker", Matchers.equalTo(car3.getMaker()))
-                .body("model", Matchers.equalTo(car3.getModel()));
-    }
-
-
-    @Test
-    @Order(4)
-    void whenGetNonExistingCar_thenNotFound() throws Exception {
-        String carId = "100";
-
-        String endpoint = UriComponentsBuilder.newInstance()
-            .scheme("http")
-            .host("127.0.0.1")
-            .port(localPortForTestServer)
-            .pathSegment("api", "cars", carId)
-            .build()
-            .toUriString();
-
-        RestAssured
-            .given()
-            .when()
-                .post(endpoint)
-            .then()
-                .statusCode(404);
+        .given()
+        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        .body(JsonUtils.toJson(car3))
+        .when()
+            .post(endpoint)
+        .then()
+            .statusCode(201);
     }
 
 }
