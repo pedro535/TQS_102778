@@ -20,13 +20,13 @@ function Homepage() {
 
                     <div className="flex justify-center">
                         <div className="">
-                            <button className="my-btn w-80 mx-2" onClick={() => {navigate('/current')}}>
+                            <button id='todays-air-quality' className="my-btn w-80 mx-2" onClick={() => {navigate('/current')}}>
                                 Today's Air Quality
                                 <BiSearchAlt className='inline-block ml-5' size={25} />
                             </button>
                         </div>
                         <div className=" text-right">
-                            <button className="my-btn w-80 mx-2" onClick={() => {navigate('/forecast')}}>
+                            <button id='air-quality-forecast' className="my-btn w-80 mx-2" onClick={() => {navigate('/forecast')}}>
                                 Air Quality Forecast
                                 <BiSearchAlt className='inline-block ml-5' size={25} />
                             </button>

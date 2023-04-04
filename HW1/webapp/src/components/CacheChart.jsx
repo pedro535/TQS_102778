@@ -95,22 +95,22 @@ function CacheChart() {
                         <div className='relative top-1/2 -translate-y-1/2'>
                             <div className='text-center mb-4'>
                                 <p className='font-bold text-xl inline mr-2'>Total Requests:</p>
-                                <span className='font-light text-2xl'>{cacheStats.requests}</span>
+                                <span id='cache-requests' className='font-light text-2xl'>{cacheStats.requests}</span>
                             </div>
 
                             <div className='text-center my-4'>
                                 <p className='font-bold text-xl inline mr-2'>Misses:</p>
-                                <span className='font-light text-2xl'>{cacheStats.misses}</span>
+                                <span id='cache-misses' className='font-light text-2xl'>{cacheStats.misses}</span>
                             </div>
 
                             <div className='text-center my-4'>
                                 <p className='font-bold text-xl inline mr-2'>Hits:</p>
-                                <span className='font-light text-2xl'>{cacheStats.hits}</span>
+                                <span id='cache-hits' className='font-light text-2xl'>{cacheStats.hits}</span>
                             </div>
 
                             <div className='text-center mt-4'>
                                 <p className='font-bold text-xl inline mr-2'>Size:</p>
-                                <span className='font-light text-2xl'>{cacheStats.size}</span>
+                                <span id='cache-size' className='font-light text-2xl'>{cacheStats.size}</span>
                             </div>
                         </div>
                     </div>

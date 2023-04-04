@@ -1,4 +1,5 @@
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api"
+import { Spinner } from "flowbite-react"
 
 
 
@@ -15,7 +16,11 @@ function Map(props) {
     
     if (!isLoaded) {
         return (
-            <p>Loading...</p>
+            <>
+                <div className='w-fit mx-auto'>
+                    <Spinner color="purple" />
+                </div>
+            </>
         )
     }
     

@@ -61,7 +61,7 @@ function AirQualityCurrent() {
     const renderError = () => {
         return (
             <div className='w-fit mx-auto'>
-                <p className="text-xl text-white">There are no results for this location</p>
+                <p id="error-location" className="text-xl text-white">There are no results for this location</p>
             </div>
         )
     }
@@ -74,8 +74,8 @@ function AirQualityCurrent() {
 
         return (
             <div>
-                <p className="text-xl text-white inline mr-3">Today's Air Quality in "{response.city}"</p>
-                <span className=" text-white font-light text-sm">({response.coord.lat}, {response.coord.lon})</span>
+                <p id="search-summary" className="text-xl text-white inline mr-3">Today's Air Quality in "{response.city}"</p>
+                <span id="coords" className=" text-white font-light text-sm">({response.coord.lat}, {response.coord.lon})</span>
                 
                 <div className='w.full h-72 my-4'>
                     <Map coord={response.coord} />
@@ -118,7 +118,7 @@ function AirQualityCurrent() {
                         </div>
 
                         <div className="my-5 text-center">
-                            <button type="submit" className="my-btn mx-4">
+                            <button id="search-todays-AQ" type="submit" className="my-btn mx-4">
                                 Search
                                 <BiSearchAlt className='inline-block ml-5' size={25} />
                             </button>
