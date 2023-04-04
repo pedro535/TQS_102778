@@ -1,7 +1,6 @@
 package pt.ua.tqs.homework.UnitTests;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 import pt.ua.tqs.homework.cache.CacheValue;
@@ -19,7 +18,6 @@ public class CacheValueTest {
 
 
     @Test
-    @DisplayName("After the ttl elapsed, isExpired() should return true")
     public void whenTtlElapsed_thenIsExpiredIsTrue() {
 
         //execute

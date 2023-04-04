@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import lombok.Setter;
 import pt.ua.tqs.homework.model.Coordinates;
 
-
+@Setter
 @Component
 public class Geocoding {
 
@@ -52,7 +53,4 @@ public class Geocoding {
         return new Coordinates(lat, lon);
     }
 
-
-
-    
 }

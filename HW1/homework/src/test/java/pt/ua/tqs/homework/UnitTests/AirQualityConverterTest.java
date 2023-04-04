@@ -2,21 +2,19 @@ package pt.ua.tqs.homework.UnitTests;
 
 import java.util.List;
 import java.util.Map;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import pt.ua.tqs.homework.model.AirQuality;
 import pt.ua.tqs.homework.model.AirQualityData;
 import pt.ua.tqs.homework.model.AirQualityDataResponse;
 import pt.ua.tqs.homework.model.AirQualityResponse;
 import pt.ua.tqs.homework.utils.AirQualityConverter;
 
+
 public class AirQualityConverterTest {
 
 
     @Test
-    @DisplayName("When a valid AirQualityResponse is passed, convertToAirQuality() should return a valid AirQuality object")
     public void whenValidAirQualityResponse_thenReturnAirQualityObject() {
         String city = "Aveiro";
         String countryCode = "PT";
@@ -45,7 +43,6 @@ public class AirQualityConverterTest {
 
 
     @Test
-    @DisplayName("When the AirQualityResponse has 0 results, AirQuality object should have 0 results")
     public void whenAirQualityResponseHasNoResults_thenReturnEmptyResults() {
         String city = "Aveiro";
         String countryCode = "PT";

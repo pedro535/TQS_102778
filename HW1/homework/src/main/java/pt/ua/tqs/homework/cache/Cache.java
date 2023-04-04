@@ -11,7 +11,7 @@ public class Cache<T> implements ICache<T> {
     private Map<String, CacheValue<T>> map;
     private int misses;
     private int hits;
-    private static final long TTL = 10000L;
+    private static final long TTL = 20000L;
     private static final long CLEAN_INTERVAL = 2000L;
 
 

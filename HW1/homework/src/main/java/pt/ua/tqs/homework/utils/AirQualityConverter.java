@@ -38,12 +38,13 @@ public class AirQualityConverter {
         Map<String, List<AirQualityData>> values = new HashMap<>();
         
         for (AirQualityDataResponse v : openWeatherObj.getList()) {
+            String vDateTime = toDate(v.getDt());
 
             //convert OpenWeather air data to AirQualityData format
-            AirQualityData newData = new AirQualityData(v.getMain().get("aqi"), v.getComponents(), toDate(v.getDt()));
+            AirQualityData newData = new AirQualityData(v.getMain().get("aqi"), v.getComponents(), vDateTime);
             
             //extract yyyy-MM-dd from timestamp
-            String date = toDate(v.getDt()).split(" ")[0];
+            String date = vDateTime.split(" ")[0];
             
             if (!values.containsKey(date)) {
                 values.put(date, new ArrayList<>());
@@ -59,7 +60,7 @@ public class AirQualityConverter {
 
 
     /*
-     * Convert UNIX timestamp to Date
+     * Convert UNIX timestamp to DateTime
      */
 
     public static String toDate(long timestamp) {
