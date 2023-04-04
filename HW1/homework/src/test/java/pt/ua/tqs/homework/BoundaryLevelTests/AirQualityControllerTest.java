@@ -50,8 +50,7 @@ public class AirQualityControllerTest {
         )
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.city", is(city)))
-            .andExpect(jsonPath("$.countryCode", is(countryCode))
-        );
+            .andExpect(jsonPath("$.countryCode", is(countryCode)));
 
         //verify
         verify(airQualityService, times(1)).getAirQuality(city, countryCode, totalDays);
