@@ -5,14 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import pt.ua.tqs.homework.controller.AirQualityController;
 import pt.ua.tqs.homework.controller.CacheStatsController;
-import pt.ua.tqs.homework.model.AirQuality;
 import pt.ua.tqs.homework.model.CacheStats;
-import pt.ua.tqs.homework.service.AirQualityService;
 import pt.ua.tqs.homework.service.CacheStatsService;
-
-import java.util.HashMap;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
