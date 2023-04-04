@@ -1,117 +1,129 @@
-// package pt.ua.tqs.homework.ServiceLevelTests;
+package pt.ua.tqs.homework.ServiceLevelTests;
 
-// import static org.mockito.ArgumentMatchers.anyString;
-// import static org.mockito.Mockito.times;
-// import static org.mockito.Mockito.verify;
-// import static org.mockito.Mockito.when;
-
-// import java.io.IOException;
-// import java.net.URISyntaxException;
-
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.DisplayName;
-// import org.junit.jupiter.api.Test;
-// import org.junit.jupiter.api.extension.ExtendWith;
-// import org.mockito.InjectMocks;
-// import org.mockito.Mock;
-// import org.mockito.junit.jupiter.MockitoExtension;
-
-// import pt.ua.tqs.homework.connection.IHttpClient;
-// import pt.ua.tqs.homework.model.AirQualityResponse;
-// import pt.ua.tqs.homework.model.Coordinates;
-// import pt.ua.tqs.homework.service.AirQualityService;
-
-// import static org.assertj.core.api.Assertions.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ua.tqs.homework.cache.Cache;
+import pt.ua.tqs.homework.connection.AirQualityProvider;
+import pt.ua.tqs.homework.connection.Geocoding;
+import pt.ua.tqs.homework.model.AirQuality;
+import pt.ua.tqs.homework.model.Coordinates;
+import pt.ua.tqs.homework.service.AirQualityService;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
-// @ExtendWith(MockitoExtension.class)
-// public class AirQualityServiceTest {
+@ExtendWith(MockitoExtension.class)
+public class AirQualityServiceTest {
     
+    @Mock
+    private Cache<AirQuality> cache;
 
-//     @Mock
-//     private IHttpClient httpClient;
+    @Mock
+    private Geocoding geocoding;
 
-//     @InjectMocks
-//     private AirQualityService airQualityService;
+    @Mock
+    private AirQualityProvider airQualityProvider;
 
+    @InjectMocks
+    private AirQualityService airQualityService;
 
-
-//     @BeforeEach
-//     public void setup() {
-
-//         //set api config props, because service uses @Value
-//         airQualityService.setAirQualityUrl("http://api.openweathermap.org/data/2.5/air_pollution/forecast");
-//         airQualityService.setReverseGeocodingUrl("http://api.openweathermap.org/geo/1.0/direct");
-//         airQualityService.setApiKey("");
-//     }
-
-
-//     @Test
-//     @DisplayName("When getCoords() with a valid location, return a Coordinates object")
-//     public void whenValidLocation_thenReturnCoords() throws IOException, URISyntaxException {
-
-//         String city = "Aveiro";
-//         String countryCode = "PT";
-
-//         //stubbing
-//         String response = "[{\"name\":\"Aveiro\",\"local_names\":{\"lt\":\"Aveiras\",\"ru\":\"Авейру\",\"pt\":\"Aveiro\",\"el\":\"Αβέιρο\",\"hu\":\"Aveiro\",\"ar\":\"آويرو\"},\"lat\":40.640496,\"lon\":-8.6537841,\"country\":\"PT\"}]";
-//         when(httpClient.httpGet(anyString())).thenReturn(response);
-
-//         //execute
-//         Coordinates coords = airQualityService.getCoords(city, countryCode);
-
-//         //assert and verify
-//         assertThat(coords.getLat()).isEqualTo(40.640496);
-//         assertThat(coords.getLon()).isEqualTo(-8.6537841);
-
-//         //verify
-//         verify(httpClient, times(1)).httpGet(anyString());
-
-//     }
+    private String city;
+    private String countryCode;
+    private int totalDays;
+    private Map<String, Double> coords;
+    private Coordinates coordsObj;
 
 
-//     @Test
-//     @DisplayName("When getCoords() with a invalid location, return null")
-//     public void whenInvalidLocation_thenReturnNull() throws IOException, URISyntaxException {
+    @BeforeEach
+    public void setup() throws IOException, URISyntaxException {
+        city = "Aveiro";
+        countryCode = "PT";
+        totalDays = 1;
 
-//         String city = "aaaaa";
-//         String countryCode = "aaaaa";
+        coords = new HashMap<>();
+        coords.put("lat", 40.640496);
+        coords.put("lon", -8.6537841);
 
-//         //stubbing
-//         String response = "[]";
-//         when(httpClient.httpGet(anyString())).thenReturn(response);
-
-//         //execute
-//         Coordinates coords = airQualityService.getCoords(city, countryCode);
-
-//         //assert and verify
-//         assertThat(coords).isNull();
-
-//         //verify
-//         verify(httpClient, times(1)).httpGet(anyString());
-//     }
+        coordsObj = new Coordinates(40.640496, -8.6537841);
+    }
 
 
-//     // @Test
-//     // @DisplayName("When getAirQualityInfo() with valid coords, return AirQuality object")
-//     // public void whenValidCoords_thenReturnAirQuality() throws IOException, URISyntaxException {
-//     //     String city = "Aveiro";
-//     //     String countryCode = "PT";
-//     //     Coordinates coords = new Coordinates(40.640496, -8.6537841);
+    @Test
+    void whenAirQualityInCache_thenReturnAirQualityFromCache() throws IOException, URISyntaxException {
 
-//     //     //stubbing
-//     //     String response = "{\"coord\":{\"lon\":-8.6538,\"lat\":40.6405},\"list\":[{\"main\":{\"aqi\":2},\"components\":{\"co\":195.27,\"no\":0.08,\"no2\":0.79,\"o3\":71.53,\"so2\":1.03,\"pm2_5\":2.26,\"pm10\":4.32,\"nh3\":0},\"dt\":1680367039}]}";
-//     //     when(httpClient.httpGet(anyString())).thenReturn(response);
+        //stubbing
+        when(cache.get( city + "-" + countryCode + "-" + totalDays )).thenReturn(new AirQuality(city, countryCode, coords));
 
-//     //     //execute
-//     //     AirQuality results = airQualityService.getAirQualityInfo(city, countryCode, response, 0)
+        //execute
+        AirQuality airQuality = airQualityService.getAirQuality(city, countryCode, totalDays);
 
-//     //     //assert and verify
-//     //     assertThat(coords).isNull();
+        //assert
+        assertThat(airQuality).isNotNull();
+        assertThat(airQuality.getCity()).isEqualTo(city);
+        assertThat(airQuality.getCountryCode()).isEqualTo(countryCode);
+        assertThat(airQuality.getCoord()).isEqualTo(coords);
 
-//     //     //verify
-//     //     verify(httpClient, times(1)).httpGet(anyString());
+        //verify if the cache.get was the only method to be invoked
+        verify(cache, times(1)).get(city + "-" + countryCode + "-" + totalDays);
+        verify(geocoding, times(0)).getCoords(city, countryCode);
+        verify(airQualityProvider, times(0)).getAirQualityInfo(city, countryCode, new Coordinates(40.640496, -8.6537841), totalDays);
+        verify(cache, times(0)).put(city + "-" + countryCode + "-" + totalDays, airQuality);
+    }
 
-//     // }
 
-// }
+    @Test
+    void whenAirQualityNotInCacheAndValidCoords_thenReturnAirQuality() throws IOException, URISyntaxException {
+
+        //stubbing
+        when(cache.get( city + "-" + countryCode + "-" + totalDays )).thenReturn(null);
+        when(geocoding.getCoords(city, countryCode)).thenReturn(coordsObj);
+        when(airQualityProvider.getAirQualityInfo(city, countryCode, coordsObj, totalDays)).thenReturn(new AirQuality(city, countryCode, coords));
+
+        //execute
+        AirQuality airQuality = airQualityService.getAirQuality(city, countryCode, totalDays);
+
+        //assert
+        assertThat(airQuality).isNotNull();
+        assertThat(airQuality.getCity()).isEqualTo(city);
+        assertThat(airQuality.getCountryCode()).isEqualTo(countryCode);
+        assertThat(airQuality.getCoord()).isEqualTo(coords);
+
+        //verify
+        verify(cache, times(1)).get(city + "-" + countryCode + "-" + totalDays);
+        verify(geocoding, times(1)).getCoords(city, countryCode);
+        verify(airQualityProvider, times(1)).getAirQualityInfo(city, countryCode, coordsObj, totalDays);
+        verify(cache, times(1)).put(city + "-" + countryCode + "-" + totalDays, airQuality);
+    }
+
+
+    @Test
+    void whenAirQualityNotInCacheAndInvalidCoords_thenReturnNull() throws IOException, URISyntaxException {
+
+        //stubbing
+        when(cache.get( city + "-" + countryCode + "-" + totalDays )).thenReturn(null);
+        when(geocoding.getCoords(city, countryCode)).thenReturn(null);
+
+        //execute
+        AirQuality airQuality = airQualityService.getAirQuality(city, countryCode, totalDays);
+
+        //assert
+        assertThat(airQuality).isNull();
+
+        //verify
+        verify(cache, times(1)).get(city + "-" + countryCode + "-" + totalDays);
+        verify(geocoding, times(1)).getCoords(city, countryCode);
+        verify(airQualityProvider, times(0)).getAirQualityInfo(city, countryCode, coordsObj, totalDays);
+        verify(cache, times(0)).put(city + "-" + countryCode + "-" + totalDays, airQuality);
+    }
+
+}
