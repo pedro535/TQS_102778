@@ -74,7 +74,8 @@ function AirQualityCurrent() {
 
         return (
             <div>
-                <p className="text-xl text-white">Today's Air Quality in {response.city}</p>
+                <p className="text-xl text-white inline mr-3">Today's Air Quality in "{response.city}"</p>
+                <span className=" text-white font-light text-sm">({response.coord.lat}, {response.coord.lon})</span>
                 
                 <div className='w.full h-72 my-4'>
                     <Map coord={response.coord} />

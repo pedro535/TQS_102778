@@ -17,6 +17,7 @@ function AirQualityForecast() {
     const [showResults, setShowResults] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [invalidDays, setInvalidDays] = useState(false);
 
 
 
@@ -28,11 +29,18 @@ function AirQualityForecast() {
         setResponse({});
         setError(false);
         setLoading(true);
+        setInvalidDays(false);
 
         event.preventDefault();
         const city = event.target.city.value;
         const countryCode = event.target.countryCode.value;
         const totalDays = event.target.totalDays.value;
+
+        if (totalDays < 1 || totalDays > 4) {
+            setInvalidDays(true);
+            setLoading(false);
+            return;
+        }
 
         axios.get(baseURL, {
             params: {
@@ -76,13 +84,23 @@ function AirQualityForecast() {
     }
 
 
+    const renderInvalidDays = () => {
+        return (
+            <div className='w-fit mx-auto'>
+                <p className="text-xl text-white">The maximum days for forecast is 4</p>
+            </div>
+        )
+    }
+
+
 
     const renderResults = () => {
         const results = response.results;
 
         return (
             <div>
-                <p className="text-xl text-white">Air Quality Forecast for {response.city}</p>
+                <p className="text-xl text-white inline mr-3">Air Quality Forecast for "{response.city}"</p>
+                <span className=" text-white font-light text-sm">({response.coord.lat}, {response.coord.lon})</span>
                 
                 <div className='w.full h-72 my-4'>
                     <Map coord={response.coord} />
@@ -151,6 +169,7 @@ function AirQualityForecast() {
                     {loading ? renderLoading() : <></>}
                     {showResults ? renderResults() : <></>}
                     {error ? renderError() : <></>}
+                    {invalidDays ? renderInvalidDays() : <></>}
                 </div>
             </div>
         </>
