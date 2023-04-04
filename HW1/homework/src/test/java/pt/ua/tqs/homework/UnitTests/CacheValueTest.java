@@ -18,7 +18,7 @@ public class CacheValueTest {
 
 
     @Test
-    public void whenTtlElapsed_thenIsExpiredIsTrue() {
+    void whenTtlElapsed_thenIsExpiredIsTrue() {
 
         //execute
         try {

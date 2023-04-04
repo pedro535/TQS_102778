@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.apache.http.client.utils.URIBuilder;
 import com.google.gson.Gson;
+
+import lombok.Setter;
 import pt.ua.tqs.homework.model.AirQuality;
 import pt.ua.tqs.homework.model.AirQualityResponse;
 import pt.ua.tqs.homework.model.Coordinates;
 import pt.ua.tqs.homework.utils.AirQualityConverter;
 
-
+@Setter
 @Component
 public class AirQualityProvider {
 

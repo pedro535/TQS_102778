@@ -15,7 +15,7 @@ public class AirQualityConverterTest {
 
 
     @Test
-    public void whenValidAirQualityResponse_thenReturnAirQualityObject() {
+    void whenValidAirQualityResponse_thenReturnAirQualityObject() {
         String city = "Aveiro";
         String countryCode = "PT";
 
@@ -43,7 +43,7 @@ public class AirQualityConverterTest {
 
 
     @Test
-    public void whenAirQualityResponseHasNoResults_thenReturnEmptyResults() {
+    void whenAirQualityResponseHasNoResults_thenReturnEmptyResults() {
         String city = "Aveiro";
         String countryCode = "PT";
 

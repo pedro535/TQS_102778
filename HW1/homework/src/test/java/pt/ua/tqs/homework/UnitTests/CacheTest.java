@@ -152,6 +152,18 @@ public class CacheTest {
 
 
     @Test
+    void whenRemoveNonExistingElementFromCache_thenReturnNull() {
+        String key = "1";
+
+        //execute
+        String removed = cache.remove(key);
+
+        //assert
+        assertThat(removed).isNull();
+    }
+
+
+    @Test
     void whenGetElementAfterTTL_thenReturnNull() {
         String key = "1";
         String value = "John Smith";

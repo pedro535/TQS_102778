@@ -17,11 +17,6 @@ import pt.ua.tqs.homework.model.AirQualityResponse;
 
 public class AirQualityConverter {
 
-    private AirQualityConverter() {
-        throw new IllegalStateException("Utility class");
-    }
-
-
     /*
      * Convert OpenWeather object to AirQuality object
      */
