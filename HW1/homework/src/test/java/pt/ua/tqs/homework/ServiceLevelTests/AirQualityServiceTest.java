@@ -42,6 +42,7 @@ public class AirQualityServiceTest {
     private int totalDays;
     private Map<String, Double> coords;
     private Coordinates coordsObj;
+    private String cacheKey;
 
 
     @BeforeEach
@@ -53,8 +54,9 @@ public class AirQualityServiceTest {
         coords = new HashMap<>();
         coords.put("lat", 40.640496);
         coords.put("lon", -8.6537841);
-
         coordsObj = new Coordinates(40.640496, -8.6537841);
+
+        cacheKey = city + "-" + countryCode + "-" + totalDays;
     }
 
 
@@ -62,7 +64,8 @@ public class AirQualityServiceTest {
     void whenAirQualityInCache_thenReturnAirQualityFromCache() throws IOException, URISyntaxException {
 
         //stubbing
-        when(cache.get( city + "-" + countryCode + "-" + totalDays )).thenReturn(new AirQuality(city, countryCode, coords));
+        when(cache.contains(cacheKey)).thenReturn(true);
+        when(cache.get(cacheKey)).thenReturn(new AirQuality(city, countryCode, coords));
 
         //execute
         AirQuality airQuality = airQualityService.getAirQuality(city, countryCode, totalDays);
@@ -73,11 +76,12 @@ public class AirQualityServiceTest {
         assertThat(airQuality.getCountryCode()).isEqualTo(countryCode);
         assertThat(airQuality.getCoord()).isEqualTo(coords);
 
-        //verify if the cache.get was the only method to be invoked
-        verify(cache, times(1)).get(city + "-" + countryCode + "-" + totalDays);
+        //verify if the cache.contains and cache.get were the only methods to be invoked
+        verify(cache, times(1)).contains(cacheKey);
+        verify(cache, times(1)).get(cacheKey);
         verify(geocoding, times(0)).getCoords(city, countryCode);
-        verify(airQualityProvider, times(0)).getAirQualityInfo(city, countryCode, new Coordinates(40.640496, -8.6537841), totalDays);
-        verify(cache, times(0)).put(city + "-" + countryCode + "-" + totalDays, airQuality);
+        verify(airQualityProvider, times(0)).getAirQualityInfo(city, countryCode, coordsObj, totalDays);
+        verify(cache, times(0)).put(cacheKey, airQuality);
     }
 
 
@@ -85,7 +89,7 @@ public class AirQualityServiceTest {
     void whenAirQualityNotInCacheAndValidCoords_thenReturnAirQuality() throws IOException, URISyntaxException {
 
         //stubbing
-        when(cache.get( city + "-" + countryCode + "-" + totalDays )).thenReturn(null);
+        when(cache.contains(cacheKey)).thenReturn(false);
         when(geocoding.getCoords(city, countryCode)).thenReturn(coordsObj);
         when(airQualityProvider.getAirQualityInfo(city, countryCode, coordsObj, totalDays)).thenReturn(new AirQuality(city, countryCode, coords));
 
@@ -99,10 +103,10 @@ public class AirQualityServiceTest {
         assertThat(airQuality.getCoord()).isEqualTo(coords);
 
         //verify
-        verify(cache, times(1)).get(city + "-" + countryCode + "-" + totalDays);
+        verify(cache, times(1)).contains(cacheKey);
         verify(geocoding, times(1)).getCoords(city, countryCode);
         verify(airQualityProvider, times(1)).getAirQualityInfo(city, countryCode, coordsObj, totalDays);
-        verify(cache, times(1)).put(city + "-" + countryCode + "-" + totalDays, airQuality);
+        verify(cache, times(1)).put(cacheKey, airQuality);
     }
 
 
@@ -110,7 +114,7 @@ public class AirQualityServiceTest {
     void whenAirQualityNotInCacheAndInvalidCoords_thenReturnNull() throws IOException, URISyntaxException {
 
         //stubbing
-        when(cache.get( city + "-" + countryCode + "-" + totalDays )).thenReturn(null);
+        when(cache.contains(cacheKey)).thenReturn(false);
         when(geocoding.getCoords(city, countryCode)).thenReturn(null);
 
         //execute
@@ -120,10 +124,10 @@ public class AirQualityServiceTest {
         assertThat(airQuality).isNull();
 
         //verify
-        verify(cache, times(1)).get(city + "-" + countryCode + "-" + totalDays);
+        verify(cache, times(1)).contains(cacheKey);
         verify(geocoding, times(1)).getCoords(city, countryCode);
         verify(airQualityProvider, times(0)).getAirQualityInfo(city, countryCode, coordsObj, totalDays);
-        verify(cache, times(0)).put(city + "-" + countryCode + "-" + totalDays, airQuality);
+        verify(cache, times(0)).put(cacheKey, airQuality);
     }
 
 }

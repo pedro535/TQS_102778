@@ -31,10 +31,9 @@ public class AirQualityService {
 
         //check cache
         String cacheKey = String.format("%s-%s-%d", city, countryCode, days);
-        AirQuality cacheValue = cache.get(cacheKey);
 
-        if (cacheValue != null) {
-            return cacheValue;
+        if (cache.contains(cacheKey)) {
+            return cache.get(cacheKey);
         }
 
         //get coordinates

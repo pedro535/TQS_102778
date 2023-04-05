@@ -53,6 +53,11 @@ public class Cache<T> implements ICache<T> {
 
         return null;
     }
+
+
+    public boolean contains(String k) {
+        return map.containsKey(k);
+    }
     
     
     public int getHits() {

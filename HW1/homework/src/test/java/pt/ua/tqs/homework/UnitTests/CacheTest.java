@@ -59,6 +59,32 @@ public class CacheTest {
 
 
     @Test
+    void whenValueInCache_thenContainsReturnTrue() {
+        String key = "1";
+        String value = "John Smith";
+        cache.put(key, value);
+
+        //execute
+        boolean valueInCache = cache.contains(key);
+
+        //assert
+        assertThat(valueInCache).isTrue();
+    }
+
+
+    @Test
+    void whenValueNotInCache_thenContainsReturnFalse() {
+        String key = "1";
+
+        //execute
+        boolean valueInCache = cache.contains(key);
+
+        //assert
+        assertThat(valueInCache).isFalse();
+    }
+
+
+    @Test
     void whenElementsAreAdded_thenSizeIncrease() {
         String keys[] = {"1", "2", "3"};
         String names[] = {"John Smith", "Mary Jane", "Peter Parker"};
