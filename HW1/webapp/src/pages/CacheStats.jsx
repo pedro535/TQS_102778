@@ -9,7 +9,7 @@ function CacheStats() {
 
             <div className="container mx-auto py-5">
                 <div className="text-center my-14">
-                    <p className="text-5xl font-extrabold text-white">System Cache Statistics</p>
+                    <p id="page-title" className="text-5xl font-extrabold text-white">System Cache Statistics</p>
                 </div>
 
                 <CacheChart />

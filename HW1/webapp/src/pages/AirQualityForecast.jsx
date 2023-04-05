@@ -52,8 +52,8 @@ function AirQualityForecast() {
         .then((response) => {
             const res = response.data;
             setResponse(res);
-            setAvailableDates(Object.keys(res.results));
-            setDateToShow(Object.keys(res.results)[0]);  //first date
+            setAvailableDates(Object.keys(res.results).sort());
+            setDateToShow(Object.keys(res.results).sort()[0]);  //first date
             setLoading(false);
             setShowResults(true);
         })
@@ -135,7 +135,7 @@ function AirQualityForecast() {
             <div className="container mx-auto py-10">
 
                 <div className="text-center mt-10 mb-14">
-                    <p className="text-5xl font-extrabold text-white">Air Quality Forecast</p>
+                    <p id="page-title" className="text-5xl font-extrabold text-white">Air Quality Forecast</p>
                 </div>
 
                 

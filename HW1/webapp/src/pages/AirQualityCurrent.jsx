@@ -101,7 +101,7 @@ function AirQualityCurrent() {
             <div className="container mx-auto py-10">
 
                 <div className="text-center mt-10 mb-14">
-                    <p className="text-5xl font-extrabold text-white">Today's Air Quality</p>
+                    <p id="page-title" className="text-5xl font-extrabold text-white">Today's Air Quality</p>
                 </div>
 
                 
