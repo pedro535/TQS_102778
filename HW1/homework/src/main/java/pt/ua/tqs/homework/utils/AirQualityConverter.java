@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class AirQualityConverter {
         }
         
         //extract air quality values by day
-        Map<String, List<AirQualityData>> values = new HashMap<>();
+        Map<String, List<AirQualityData>> values = new LinkedHashMap<>();
         
         for (AirQualityDataResponse v : openWeatherObj.getList()) {
             String vDateTime = toDate(v.getDt());
