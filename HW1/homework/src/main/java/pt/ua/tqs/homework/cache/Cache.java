@@ -89,7 +89,6 @@ public class Cache<T> implements ICache<T> {
                     Thread.sleep(CLEAN_INTERVAL);
                     cleanCache();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
                     Thread.currentThread().interrupt();
                 }
             }
