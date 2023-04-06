@@ -78,7 +78,7 @@ function AirQualityForecast() {
     const renderError = () => {
         return (
             <div className='w-fit mx-auto'>
-                <p id="error-location" className="text-xl text-white">There are no results for this location</p>
+                <p id="error-message" className="text-xl text-white">There are no results for this location</p>
             </div>
         )
     }
@@ -87,7 +87,7 @@ function AirQualityForecast() {
     const renderInvalidDays = () => {
         return (
             <div className='w-fit mx-auto'>
-                <p id="error-invalid-days" className="text-xl text-white">The maximum days for forecast is 4</p>
+                <p id="error-message" className="text-xl text-white">The maximum days for forecast is 4</p>
             </div>
         )
     }
@@ -147,17 +147,17 @@ function AirQualityForecast() {
                         </div>
 
                         <div className="my-5">
-                            <label htmlFor="countryCode" className="block mb-1 text-sm font-medium text-white">Country Code</label>
-                            <input type="text" name="countryCode" id="countryCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Country  (e.g. PT)" required />
+                            <label htmlFor="country-code" className="block mb-1 text-sm font-medium text-white">Country Code</label>
+                            <input type="text" name="countryCode" id="country-code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Country  (e.g. PT)" required />
                         </div>
 
                         <div className="my-5">
                             <label htmlFor="totalDays" className="block mb-1 text-sm font-medium text-white">Total days</label>
-                            <input type="number" name="totalDays" id="totalDays" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Total days (4 days max)" required />
+                            <input type="number" name="totalDays" id="total-days" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Total days (4 days max)" required />
                         </div>
 
                         <div className="my-5 text-center">
-                            <button id="search-AQ-forecast" type="submit" className="my-btn mx-4">
+                            <button id="search" type="submit" className="my-btn mx-4">
                                 Search
                                 <BiSearchAlt className='inline-block ml-5' size={25} />
                             </button>

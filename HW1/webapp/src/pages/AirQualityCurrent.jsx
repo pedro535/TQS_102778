@@ -61,7 +61,7 @@ function AirQualityCurrent() {
     const renderError = () => {
         return (
             <div className='w-fit mx-auto'>
-                <p id="error-location" className="text-xl text-white">There are no results for this location</p>
+                <p id="error-message" className="text-xl text-white">There are no results for this location</p>
             </div>
         )
     }
@@ -113,12 +113,12 @@ function AirQualityCurrent() {
                         </div>
 
                         <div className="my-5">
-                            <label htmlFor="countryCode" className="block mb-1 text-sm font-medium text-white">Country Code</label>
-                            <input type="text" name="countryCode" id="countryCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Country  (e.g. PT)" required />
+                            <label htmlFor="country-code" className="block mb-1 text-sm font-medium text-white">Country Code</label>
+                            <input type="text" name="countryCode" id="country-code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Country  (e.g. PT)" required />
                         </div>
 
                         <div className="my-5 text-center">
-                            <button id="search-todays-AQ" type="submit" className="my-btn mx-4">
+                            <button id="search" type="submit" className="my-btn mx-4">
                                 Search
                                 <BiSearchAlt className='inline-block ml-5' size={25} />
                             </button>

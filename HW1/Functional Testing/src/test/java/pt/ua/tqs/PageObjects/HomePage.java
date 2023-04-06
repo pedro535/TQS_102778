@@ -1,4 +1,4 @@
-package pt.ua.tqs.PageObjects;
+package pt.ua.tqs.pageObjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +10,7 @@ public class HomePage {
 
     private WebDriver driver;
     private WebDriverWait wait;
+    
 
     @FindBy(id = "todays-air-quality")
     private WebElement todaysAirQualityBtn;
@@ -40,5 +41,6 @@ public class HomePage {
     public AirQualityForecastPage clickAirQualityForecastBtn() {
         airQualityForecastBtn.click();
         return new AirQualityForecastPage(driver, wait);
-    }    
+    }
+
 }

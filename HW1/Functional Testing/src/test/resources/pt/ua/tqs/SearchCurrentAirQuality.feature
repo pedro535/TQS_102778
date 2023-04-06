@@ -11,8 +11,9 @@ Scenario: Search for Today's Air Quality in Aveiro
   Then I should see the text 'Today\'s Air Quality in "Aveiro"'
   And I should see the coordinates '(40.6405, -8.6538)'
   And I should see at least one result
+  # And I close the browser
 
-
+  
 Scenario: Search for Today's Air Quality for an invalid location
   Given I am on the 'http://localhost:5173/' website
   When I click on the Today's Air Quality button
@@ -22,6 +23,6 @@ Scenario: Search for Today's Air Quality for an invalid location
   And I insert 'PT' in the Country Code field
   And I click on the Search button
   Then I should see the message 'There are no results for this location'
-
-
+  # And I close the browser
+  
 
