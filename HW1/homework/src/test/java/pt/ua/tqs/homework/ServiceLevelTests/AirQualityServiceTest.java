@@ -64,7 +64,6 @@ public class AirQualityServiceTest {
     void whenAirQualityInCache_thenReturnAirQualityFromCache() throws IOException, URISyntaxException {
 
         //stubbing
-        when(cache.contains(cacheKey)).thenReturn(true);
         when(cache.get(cacheKey)).thenReturn(new AirQuality(city, countryCode, coords));
 
         //execute
@@ -77,7 +76,6 @@ public class AirQualityServiceTest {
         assertThat(airQuality.getCoord()).isEqualTo(coords);
 
         //verify if the cache.contains and cache.get were the only methods to be invoked
-        verify(cache, times(1)).contains(cacheKey);
         verify(cache, times(1)).get(cacheKey);
         verify(geocoding, times(0)).getCoords(city, countryCode);
         verify(airQualityProvider, times(0)).getAirQualityInfo(city, countryCode, coordsObj, totalDays);
@@ -89,7 +87,7 @@ public class AirQualityServiceTest {
     void whenAirQualityNotInCacheAndValidCoords_thenReturnAirQuality() throws IOException, URISyntaxException {
 
         //stubbing
-        when(cache.contains(cacheKey)).thenReturn(false);
+        when(cache.get(cacheKey)).thenReturn(null);
         when(geocoding.getCoords(city, countryCode)).thenReturn(coordsObj);
         when(airQualityProvider.getAirQualityInfo(city, countryCode, coordsObj, totalDays)).thenReturn(new AirQuality(city, countryCode, coords));
 
@@ -103,7 +101,7 @@ public class AirQualityServiceTest {
         assertThat(airQuality.getCoord()).isEqualTo(coords);
 
         //verify
-        verify(cache, times(1)).contains(cacheKey);
+        verify(cache, times(1)).get(cacheKey);
         verify(geocoding, times(1)).getCoords(city, countryCode);
         verify(airQualityProvider, times(1)).getAirQualityInfo(city, countryCode, coordsObj, totalDays);
         verify(cache, times(1)).put(cacheKey, airQuality);
@@ -114,7 +112,7 @@ public class AirQualityServiceTest {
     void whenAirQualityNotInCacheAndInvalidCoords_thenReturnNull() throws IOException, URISyntaxException {
 
         //stubbing
-        when(cache.contains(cacheKey)).thenReturn(false);
+        when(cache.get(cacheKey)).thenReturn(null);
         when(geocoding.getCoords(city, countryCode)).thenReturn(null);
 
         //execute
@@ -124,7 +122,7 @@ public class AirQualityServiceTest {
         assertThat(airQuality).isNull();
 
         //verify
-        verify(cache, times(1)).contains(cacheKey);
+        verify(cache, times(1)).get(cacheKey);
         verify(geocoding, times(1)).getCoords(city, countryCode);
         verify(airQualityProvider, times(0)).getAirQualityInfo(city, countryCode, coordsObj, totalDays);
         verify(cache, times(0)).put(cacheKey, airQuality);

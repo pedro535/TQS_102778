@@ -36,9 +36,11 @@ public class Cache<T> implements ICache<T> {
     public T get(String k) {
         
         if (map.containsKey(k)) {
+            hits++;
             return map.get(k).getValue();
         }
-        
+
+        misses++;
         return null;
     }
     
@@ -50,16 +52,6 @@ public class Cache<T> implements ICache<T> {
         }
 
         return null;
-    }
-
-
-    public boolean contains(String k) {
-        if (map.containsKey(k)) {
-            hits++;
-            return true;
-        }
-        misses++;
-        return false;
     }
     
     
