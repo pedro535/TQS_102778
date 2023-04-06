@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class AirQualityServiceTest {
+class AirQualityServiceTest {
     
     @Mock
     private Cache<AirQuality> cache;

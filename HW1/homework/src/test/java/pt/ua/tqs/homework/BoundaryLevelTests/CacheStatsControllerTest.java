@@ -18,7 +18,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 
 @WebMvcTest(CacheStatsController.class)
-public class CacheStatsControllerTest {
+class CacheStatsControllerTest {
 
     @Autowired
     private MockMvc mvc;

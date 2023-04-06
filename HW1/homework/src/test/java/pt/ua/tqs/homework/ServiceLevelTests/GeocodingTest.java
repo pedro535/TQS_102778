@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
 
 
 @ExtendWith(MockitoExtension.class)
-public class GeocodingTest {
+class GeocodingTest {
 
     @Mock
     private IHttpClient httpClient;

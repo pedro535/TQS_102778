@@ -22,7 +22,7 @@ import java.net.URISyntaxException;
 
 
 @ExtendWith(MockitoExtension.class)
-public class AirQualityProviderTest {
+class AirQualityProviderTest {
 
     @Mock
     private IHttpClient httpClient;

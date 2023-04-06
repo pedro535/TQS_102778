@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.*;
 import pt.ua.tqs.homework.cache.CacheValue;
 
 
-public class CacheValueTest {
+class CacheValueTest {
 
     private CacheValue<String> cacheValue;
 

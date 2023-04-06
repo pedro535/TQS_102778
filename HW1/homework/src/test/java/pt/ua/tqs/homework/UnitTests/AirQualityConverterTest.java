@@ -11,7 +11,7 @@ import pt.ua.tqs.homework.model.AirQualityResponse;
 import pt.ua.tqs.homework.utils.AirQualityConverter;
 
 
-public class AirQualityConverterTest {
+class AirQualityConverterTest {
 
 
     @Test

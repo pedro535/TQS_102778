@@ -8,7 +8,7 @@ import java.util.List;
 import pt.ua.tqs.homework.cache.Cache;
 
 
-public class CacheTest {
+ class CacheTest {
 
     private Cache<String> cache;
 

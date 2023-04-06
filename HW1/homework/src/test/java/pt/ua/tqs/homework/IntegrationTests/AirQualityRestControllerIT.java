@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK, classes = HomeworkApplication.class)
 @AutoConfigureMockMvc
-public class AirQualityRestControllerIT {
+class AirQualityRestControllerIT {
 
     @Autowired
     private MockMvc mvc;

@@ -19,7 +19,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 
 @WebMvcTest(AirQualityController.class)
-public class AirQualityControllerTest {
+class AirQualityControllerTest {
 
     @Autowired
     private MockMvc mvc;

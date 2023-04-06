@@ -10,7 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AirQualityRestControllerRestAssuredIT {
+class AirQualityRestControllerRestAssuredIT {
 
     @LocalServerPort
     private int localPortForTestServer;
