@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,7 @@ public class AirQualityController {
     }
 
 
-    @RequestMapping("/current")
+    @GetMapping("/current")
     public ResponseEntity<AirQuality> getCurrentDayAirQuality(@RequestParam String city, @RequestParam String countryCode) throws IOException, URISyntaxException {
         
         AirQuality results = airQualityService.getAirQuality(city, countryCode, 1);
@@ -38,7 +39,7 @@ public class AirQualityController {
     }
 
 
-    @RequestMapping("/forecast")
+    @GetMapping("/forecast")
     public ResponseEntity<AirQuality> getAirQualityForecast(@RequestParam String city, @RequestParam String countryCode, @RequestParam int days) throws IOException, URISyntaxException {
 
         AirQuality results = airQualityService.getAirQuality(city, countryCode, days);

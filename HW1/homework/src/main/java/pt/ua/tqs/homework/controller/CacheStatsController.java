@@ -2,6 +2,7 @@ package pt.ua.tqs.homework.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pt.ua.tqs.homework.model.CacheStats;
@@ -20,7 +21,7 @@ public class CacheStatsController {
     }
 
 
-    @RequestMapping("/stats")
+    @GetMapping("/stats")
     public ResponseEntity<CacheStats> getCacheStats() {
         CacheStats stats = cacheStatsService.getCacheStats();
         return new ResponseEntity<>(stats, HttpStatus.OK);
