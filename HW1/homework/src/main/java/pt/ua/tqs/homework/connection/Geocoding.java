@@ -36,7 +36,7 @@ public class Geocoding {
 
     public Coordinates getCoords(String city, String countryCode) throws IOException, URISyntaxException {
 
-        logger.info(String.format("Geocoding %s, %s to coordinates", city, countryCode));
+        logger.info("Getting coordinates from OpenWeather Geocoding API");
         
         //build uri
         String uri = new URIBuilder(reverseGeocodingUrl)
@@ -45,7 +45,6 @@ public class Geocoding {
             .build().toString();
 
         //http get using httpClient
-        logger.info(String.format("Sending request to %s", uri));
         String apiResponse = httpClient.httpGet(uri);
 
         //get parts from response till reaching the coordinates

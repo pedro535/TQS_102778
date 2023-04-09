@@ -34,7 +34,7 @@ public class AirQualityService {
 
     public AirQuality getAirQuality(String city, String countryCode, int days) throws IOException, URISyntaxException {
 
-        logger.info(String.format("Checking if the cache contains the key %s-%s-%d", city, countryCode, days));
+        logger.info("Checking if the cache contains the requested data");
 
         //check cache
         String cacheKey = String.format("%s-%s-%d", city, countryCode, days);
@@ -54,7 +54,7 @@ public class AirQualityService {
         //get air quality
         AirQuality airQuality = airQualityProvider.getAirQualityInfo(city, countryCode, coords, days);
         
-        logger.info(String.format("Adding the key %s-%s-%d to the cache", city, countryCode, days));
+        logger.info("Adding data to cache");
         cache.put(cacheKey, airQuality);
         return airQuality;
     }

@@ -42,7 +42,7 @@ public class AirQualityProvider {
 
     public AirQuality getAirQualityInfo(String city, String countryCode, Coordinates coords, int totalDays) throws URISyntaxException, IOException {
 
-        logger.info(String.format("Getting air quality info for %s, %s", city, countryCode));
+        logger.info("Getting air quality info from OpenWeather Air Pollution API");
 
         if (totalDays > 4) {
             return null;
@@ -56,7 +56,6 @@ public class AirQualityProvider {
             .build().toString();
 
         //get response
-        logger.info(String.format("Sending request to %s", uri));
         String response = httpClient.httpGet(uri);
 
         //json to object
