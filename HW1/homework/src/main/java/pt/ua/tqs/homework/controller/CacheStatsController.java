@@ -7,11 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pt.ua.tqs.homework.model.CacheStats;
 import pt.ua.tqs.homework.service.CacheStatsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @RestController
 @RequestMapping("/api/cache")
 public class CacheStatsController {
+
+    public static final Logger logger = LoggerFactory.getLogger(CacheStatsController.class);
 
     private CacheStatsService cacheStatsService;
 
@@ -23,6 +27,8 @@ public class CacheStatsController {
 
     @GetMapping("/stats")
     public ResponseEntity<CacheStats> getCacheStats() {
+        logger.info("New request for cache stats");
+        
         CacheStats stats = cacheStatsService.getCacheStats();
         return new ResponseEntity<>(stats, HttpStatus.OK);
     }

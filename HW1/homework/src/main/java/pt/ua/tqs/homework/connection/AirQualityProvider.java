@@ -15,9 +15,15 @@ import pt.ua.tqs.homework.model.AirQualityResponse;
 import pt.ua.tqs.homework.model.Coordinates;
 import pt.ua.tqs.homework.utils.AirQualityConverter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 @Setter
 @Component
 public class AirQualityProvider {
+
+    public static final Logger logger = LoggerFactory.getLogger(AirQualityProvider.class);
 
     private IHttpClient httpClient;
 
@@ -36,6 +42,8 @@ public class AirQualityProvider {
 
     public AirQuality getAirQualityInfo(String city, String countryCode, Coordinates coords, int totalDays) throws URISyntaxException, IOException {
 
+        logger.info(String.format("Getting air quality info for %s, %s", city, countryCode));
+
         if (totalDays > 4) {
             return null;
         }
@@ -48,6 +56,7 @@ public class AirQualityProvider {
             .build().toString();
 
         //get response
+        logger.info(String.format("Sending request to %s", uri));
         String response = httpClient.httpGet(uri);
 
         //json to object

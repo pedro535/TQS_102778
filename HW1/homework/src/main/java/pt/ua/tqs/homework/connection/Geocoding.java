@@ -9,10 +9,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import lombok.Setter;
 import pt.ua.tqs.homework.model.Coordinates;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Setter
 @Component
 public class Geocoding {
+
+    public static final Logger logger = LoggerFactory.getLogger(Geocoding.class);
 
     private IHttpClient httpClient;
 
@@ -30,14 +35,18 @@ public class Geocoding {
 
 
     public Coordinates getCoords(String city, String countryCode) throws IOException, URISyntaxException {
+
+        logger.info(String.format("Geocoding %s, %s to coordinates", city, countryCode));
         
         //build uri
-        URIBuilder uriBuilder = new URIBuilder(reverseGeocodingUrl)
+        String uri = new URIBuilder(reverseGeocodingUrl)
             .addParameter("appid", apiKey)
-            .addParameter("q", city + "," + countryCode);
+            .addParameter("q", city + "," + countryCode)
+            .build().toString();
 
         //http get using httpClient
-        String apiResponse = httpClient.httpGet(uriBuilder.build().toString());
+        logger.info(String.format("Sending request to %s", uri));
+        String apiResponse = httpClient.httpGet(uri);
 
         //get parts from response till reaching the coordinates
         JsonElement results = JsonParser.parseString(apiResponse);

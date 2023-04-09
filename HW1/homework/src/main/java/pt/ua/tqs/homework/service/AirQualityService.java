@@ -9,9 +9,14 @@ import pt.ua.tqs.homework.connection.Geocoding;
 import pt.ua.tqs.homework.model.AirQuality;
 import pt.ua.tqs.homework.model.Coordinates;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Service
 public class AirQualityService {
+
+    public static final Logger logger = LoggerFactory.getLogger(AirQualityService.class);
 
     private Cache<AirQuality> cache;
 
@@ -28,6 +33,8 @@ public class AirQualityService {
 
 
     public AirQuality getAirQuality(String city, String countryCode, int days) throws IOException, URISyntaxException {
+
+        logger.info(String.format("Checking if the cache contains the key %s-%s-%d", city, countryCode, days));
 
         //check cache
         String cacheKey = String.format("%s-%s-%d", city, countryCode, days);
@@ -47,6 +54,7 @@ public class AirQualityService {
         //get air quality
         AirQuality airQuality = airQualityProvider.getAirQualityInfo(city, countryCode, coords, days);
         
+        logger.info(String.format("Adding the key %s-%s-%d to the cache", city, countryCode, days));
         cache.put(cacheKey, airQuality);
         return airQuality;
     }
